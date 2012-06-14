@@ -32,6 +32,7 @@ class Config(object):
             '/etc/',
             dirname(__file__)
         ]
+
         for conf_path in lookup_conf_file_paths:
             conf_path_file = abspath(join(conf_path, 'frec.conf'))
             if exists(conf_path_file):
@@ -40,7 +41,7 @@ class Config(object):
         raise ConfigurationError('frec.conf file not passed and not found on the lookup paths %s' % lookup_conf_file_paths)
 
     @classmethod
-    def load(cls, path):
+    def load(cls, path=None):
         if path is None:
             path = cls.get_conf_file()
 

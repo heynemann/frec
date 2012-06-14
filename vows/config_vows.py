@@ -40,6 +40,30 @@ class Configuration(Vows.Context):
                 expect(actual).not_to_be_null()
                 expect(actual).to_equal(expected)
 
+        class VerifyLoadedValue(Vows.Context):
+            def topic(self, data):
+                key, default_value = data
+                cfg = Config.load(abspath(join(dirname(__file__), 'config_vows_frec.conf')))
+                return (getattr(cfg, key), default_value)
+
+            def should_have_default_value(self, topic):
+                actual, expected = topic
+                expect(actual).not_to_be_null()
+                expect(actual).to_equal(expected)
+
+
+        class VerifyLoadedValueWithDefaultPath(Vows.Context):
+            def topic(self, data):
+                key, default_value = data
+                cfg = Config.load()
+                return (getattr(cfg, key), default_value)
+
+            def should_have_default_value(self, topic):
+                actual, expected = topic
+                expect(actual).not_to_be_null()
+                expect(actual).to_equal(expected)
+
+
     class GetConfFilePath(Vows.Context):
 
         def topic(self):
@@ -49,4 +73,14 @@ class Configuration(Vows.Context):
             expected = abspath(join(dirname(__file__), '../frec/frec.conf'))
             expect(topic).to_equal(expected)
 
+
+    class ConfigWithDefaults(Vows.Context):
+
+        def topic(self):
+            return Config(defaults={
+                'some_random_key': 'some_random_value'
+            })
+
+        def should_have_random_key(self, topic):
+            expect(topic.some_random_key).to_equal('some_random_value')
 
