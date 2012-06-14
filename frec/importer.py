@@ -28,7 +28,8 @@ class Importer:
         return get_module and module or getattr(module, klass)
 
     def import_modules(self):
-        self.config.validates_presence_of('ENGINE', 'LOADER', 'STORAGE', 'DETECTORS', 'FILTERS')
+        pass
+        #self.config.validates_presence_of('ENGINE', 'LOADER', 'STORAGE', 'DETECTORS', 'FILTERS')
         #self.import_item('ENGINE', 'Engine')
 
         #if self.config.ORIGINAL_PHOTO_STORAGE:
