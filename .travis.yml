@@ -4,6 +4,6 @@ python:
   - "2.7"
   - "3.2"
 # command to install dependencies
-install: sudo aptitude install libevent-dev libxml2-dev && pip install -r test_requirements.txt --use-mirrors
+install: sudo aptitude install -y libevent-dev libxml2-dev && pip install -r test_requirements.txt --use-mirrors
 # command to run tests
 script: make ci_test
