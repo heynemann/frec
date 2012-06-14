@@ -12,7 +12,7 @@ from os.path import abspath, dirname, join
 
 from pyvows import Vows, expect
 
-from frec.config import Config
+from frec.config import Config, ConfigurationError
 
 TEST_DATA = (
     ('REDIS_STORAGE_SERVER_HOST', 'localhost'),
@@ -24,10 +24,12 @@ TEST_DATA = (
 @Vows.batch
 class Configuration(Vows.Context):
 
+
     class DefaultFrecConf(Vows.Context):
         def topic(self):
             for data in TEST_DATA:
                 yield data
+
 
         class VerifyDefaultValueContext(Vows.Context):
             def topic(self, data):
@@ -39,6 +41,7 @@ class Configuration(Vows.Context):
                 actual, expected = topic
                 expect(actual).not_to_be_null()
                 expect(actual).to_equal(expected)
+
 
         class VerifyLoadedValue(Vows.Context):
             def topic(self, data):
@@ -77,10 +80,39 @@ class Configuration(Vows.Context):
     class ConfigWithDefaults(Vows.Context):
 
         def topic(self):
-            return Config(defaults={
+            cfg = Config(defaults={
                 'some_random_key': 'some_random_value'
             })
 
+            cfg.validates_presence_of('some_random_key')
+            return cfg
+
         def should_have_random_key(self, topic):
+            expect(topic.get('some_random_key')).to_equal('some_random_value')
             expect(topic.some_random_key).to_equal('some_random_value')
+
+        def should_validate_presence(self, topic):
+            expect(topic).not_to_be_an_error()
+
+
+    class ConfigValidatePresenceError(Vows.Context):
+
+        def topic(self):
+            cfg = Config()
+            cfg.validates_presence_of('some_random_key')
+
+        def should_be_an_error(self, topic):
+            expect(topic).to_be_an_error()
+            expect(topic).to_be_an_error_like(ConfigurationError)
+
+
+    class ConfigGetWithDefault(Vows.Context):
+
+        def topic(self):
+            cfg = Config()
+            return cfg.get('some_random_key', 'override')
+
+        def should_be_override(self, topic):
+            expect(topic).to_equal('override')
+
 
