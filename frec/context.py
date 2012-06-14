@@ -21,6 +21,7 @@ class Context:
     def __init__(self, server=None, config=None, importer=None):
         self.server = server
         self.config = config
+
         if importer:
             self.modules = ContextImporter(self, importer)
         else:

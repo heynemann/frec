@@ -10,7 +10,9 @@
 
 from pyvows import Vows, expect
 
-from frec.context import Context, ServerParameters
+from frec.config import Config
+from frec.context import Context, ServerParameters, ContextImporter
+from frec.importer import Importer
 
 @Vows.batch
 class ContextVows(Vows.Context):
@@ -25,6 +27,14 @@ class ContextVows(Vows.Context):
 
         def should_be_context(self, topic):
             expect(topic).to_be_instance_of(Context)
+
+        class WithImporter(Vows.Context):
+            def topic(self):
+                config = Config()
+                return Context(importer=Importer(config))
+
+            def should_have_importer(self, topic):
+                expect(topic.modules).to_be_instance_of(ContextImporter)
 
 @Vows.batch
 class ServerParameterVows(Vows.Context):
