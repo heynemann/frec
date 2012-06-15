@@ -15,6 +15,7 @@ from pyvows import Vows, expect
 from frec.config import Config, ConfigurationError
 
 TEST_DATA = (
+    ('FILE_LOADER_ROOT_PATH', '/tmp/frec'),
     ('REDIS_STORAGE_SERVER_HOST', 'localhost'),
     ('REDIS_STORAGE_SERVER_PORT', 6379),
     ('REDIS_STORAGE_SERVER_DB', 0),

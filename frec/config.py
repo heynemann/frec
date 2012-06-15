@@ -87,6 +87,9 @@ class Config(object):
 
         raise AttributeError(name)
 
+# FILE LOADER OPTIONS
+Config.define('FILE_LOADER_ROOT_PATH', '/tmp/frec')
+
 # REDIS STORAGE OPTIONS
 Config.define('REDIS_STORAGE_SERVER_HOST', 'localhost')
 Config.define('REDIS_STORAGE_SERVER_PORT', 6379)
