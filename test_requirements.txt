@@ -3,3 +3,5 @@ pyvows
 tornado-pyvows
 coverage
 lxml
+numpy
+scipy

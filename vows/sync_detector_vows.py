@@ -4,16 +4,16 @@
 # frec face recognition service
 # https://github.com/heynemann/frec
 
-# Licensed under the MIT license:
+# licensed under the mit license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# copyright (c) 2011 bernardo heynemann heynemann@gmail.com
 
 from pyvows import Vows, expect
 
 #import frec.detectors.sync_detector as detector
 
-#@Vows.batch
-#class SyncDetector(Vows.Context):
+#@vows.batch
+#class syncdetector(vows.Context):
     #class ShouldReturnDetectedItemsInPicture(Vows.Context):
         #def topic(self):
             #det = detector()

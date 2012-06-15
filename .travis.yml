@@ -4,6 +4,7 @@ python:
   - "2.7"
 # command to install dependencies
 #sudo apt-get install 
-install: sudo aptitude install -y libevent-dev libxml2-dev libcurl4-gnutls-dev python-pycurl-dbg librtmp-dev && pip install -r test_requirements.txt --use-mirrors
+
+install: sudo aptitude install -y $(< file.txt) && pip install -r test_requirements.txt --use-mirrors
 # command to run tests
 script: make ci_test
