@@ -17,7 +17,7 @@ cd ffmpeg-0.11.1
 --enable-libvorbis --enable-libx264 --enable-libxvid --enable-nonfree
 --enable-postproc --enable-version3 --enable-x11grab && make && sudo make install
 cd ..
-wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.1/OpenCV-2.4.1.tar.bz2?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fopencvlibrary%2Ffiles%2Fopencv-unix%2F2.4.1%2F&ts=1339796450&use_mirror=ufpr
+wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.1/OpenCV-2.4.1.tar.bz2
 tar xjf OpenCV-2.4.1.tar.bz2
 cd OpenCV-2.4.1
 mkdir release
