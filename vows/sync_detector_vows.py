@@ -10,7 +10,7 @@
 
 from pyvows import Vows, expect
 
-import frec.detectors.sync_detector as detector
+#import frec.detectors.sync_detector as detector
 
 #@Vows.batch
 #class SyncDetector(Vows.Context):
