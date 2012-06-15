@@ -12,8 +12,10 @@ from pyvows import Vows, expect
 
 from frec.importer import Importer
 from frec.config import Config
+import frec.loaders.file_loader as file_loader
 
 test_data = [
+    ('loader', file_loader),
 ]
 
 @Vows.batch
@@ -23,6 +25,7 @@ class ImporterVows(Vows.Context):
         def topic(self):
             for data in test_data:
                 complete_config = Config(
+                    loader='frec.loaders.file_loader'
                 )
 
                 yield data, complete_config

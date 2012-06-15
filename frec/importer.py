@@ -15,7 +15,7 @@ from frec.utils import logger
 class Importer:
     def __init__(self, config):
         self.config = config
-        #self.engine = None
+        self.loader = None
 
     def import_class(self, name, get_module=False):
         module_name = get_module and name or '.'.join(name.split('.')[:-1])
@@ -28,9 +28,8 @@ class Importer:
         return get_module and module or getattr(module, klass)
 
     def import_modules(self):
-        pass
-        #self.config.validates_presence_of('ENGINE', 'LOADER', 'STORAGE', 'DETECTORS', 'FILTERS')
-        #self.import_item('ENGINE', 'Engine')
+        self.config.validates_presence_of('LOADER')
+        self.import_item('LOADER')
 
         #if self.config.ORIGINAL_PHOTO_STORAGE:
             #self.import_item('ORIGINAL_PHOTO_STORAGE', 'Storage')

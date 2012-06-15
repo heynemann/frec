@@ -87,6 +87,9 @@ class Config(object):
 
         raise AttributeError(name)
 
+# LOADER OPTIONS
+Config.define('LOADER', 'frec.loaders.file_loader')
+
 # FILE LOADER OPTIONS
 Config.define('FILE_LOADER_ROOT_PATH', '/tmp/frec')
 
