@@ -7,3 +7,6 @@ libatlas-base-dev
 gfortran
 python-numpy
 python-opencv
+libcv-dev
+libcvaux-dev
+libhighgui-dev
