@@ -31,9 +31,6 @@ class Importer:
         self.config.validates_presence_of('LOADER')
         self.import_item('LOADER')
 
-        #if self.config.ORIGINAL_PHOTO_STORAGE:
-            #self.import_item('ORIGINAL_PHOTO_STORAGE', 'Storage')
-
     def import_item(self, config_key=None, class_name=None, is_multiple=False, item_value=None, ignore_errors=False):
         if item_value is None:
             conf_value = getattr(self.config, config_key)
