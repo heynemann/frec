@@ -5,4 +5,4 @@ python:
 install: LDFLAGS=-lm sudo aptitude install -y $(< requirements) && pip install -r test_requirements.txt --use-mirrors
 
 # command to run tests
-script: sudo ./install-opencv.sh && make ci_test
+script: sudo ./install-opencv.sh && PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ make ci_test
