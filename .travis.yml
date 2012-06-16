@@ -4,8 +4,7 @@ python:
 # command to install dependencies
 #sudo apt-get install 
 
-install: sudo ./install-opencv.sh && LDFLAGS=-lm sudo aptitude install -y $(< requirements) && pip install -r test_requirements.txt --use-mirrors
-#install: LDFLAGS=-lm sudo aptitude install -y $(< requirements) && pip install -r test_requirements.txt --use-mirrors
+install: LDFLAGS=-lm sudo aptitude install -y $(< requirements) && pip install -r test_requirements.txt --use-mirrors
 # command to run tests
-#script: make ci_test
-script: sudo find / -name 'cv2.so'
+script: sudo ./install-opencv.sh && make ci_test
+#script: sudo find / -name 'cv2.so'
