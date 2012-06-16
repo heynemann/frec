@@ -16,6 +16,8 @@ import os
 import cv2
 import numpy as np
 
+import frec.face as face
+
 class Detector:
     def detect(self, src):
         raise NotImplementedError("Every Detector must implement the detect method.")
@@ -45,5 +47,9 @@ class CascadedDetector(Detector):
         rects = self.cascade.detectMultiScale(src, scaleFactor=self.scale_factor, minNeighbors=self.min_neighbors, minSize=self.min_size)
         if len(rects) == 0:
             return []
-        rects[:,2:] += rects[:,:2]
-        return rects
+
+        faces = []
+        for rect in rects.tolist():
+            if len(rect) != 4: continue
+            faces.append(face.Face(x=rect[0], y=rect[1], width=rect[2], height=rect[3]))
+        return faces
