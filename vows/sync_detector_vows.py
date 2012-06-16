@@ -36,3 +36,5 @@ class SyncDetector(Vows.Context):
         def should_not_be_none(self, topic):
             expect(topic).not_to_be_null()
 
+        def should_not_be_empty(self, topic):
+            expect(topic).not_to_be_empty()
