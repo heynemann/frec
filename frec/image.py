@@ -13,15 +13,10 @@
 import cv
 
 class Image:
-    #@classmethod
-    #def create_from_raw_bytes(cls, size, mode, img_data):
-        #instance = cls()
-        #instance.set_image_data(size, mode, img_data)
-        #return instance
-
     @classmethod
     def create_from_buffer(cls, image_buffer):
         instance = cls()
+
         if not instance.is_valid(image_buffer):
             return None
 
@@ -39,12 +34,6 @@ class Image:
         self.size = cv.GetSize(self.image)
         self.mode = "BGR"
 
-    #def set_image_raw_data(self, size, mode, img_data):
-        #self.image = cv.CreateImageHeader(size, cv.IPL_DEPTH_8U, 3)
-        #cv.SetData(self.image, img_data)
-        #self.mode = mode
-        #self.size = size
-
     def grayscale(self):
         convert_mode = getattr(cv, 'CV_%s2GRAY' % self.mode)
 
@@ -52,3 +41,4 @@ class Image:
         cv.CvtColor(self.image, gray, convert_mode)
         cv.EqualizeHist(gray, gray)
         self.image = gray
+
