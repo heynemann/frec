@@ -16,9 +16,11 @@ import frec.image as image
 import frec.detectors.sync_detector as detector
 
 ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-test_data = (
-    (path.join(ROOT_PATH, 's1', '1.pgm'), 9, 29, 74, 74),
-)
+image_path = lambda person, picture: path.join(ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
+test_data = [
+    (image_path(1, 1), 9, 29, 74, 74),
+    (image_path(1, 3), 7, 24, 74, 74),
+]
 
 def _read(path):
     with open(path, 'rb') as f:
