@@ -4,3 +4,4 @@ tornado-pyvows
 coverage
 lxml
 numpy
+sphinx

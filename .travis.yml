@@ -2,9 +2,7 @@ language: python
 python:
   - "2.7"
 # command to install dependencies
-#sudo apt-get install 
-
 install: LDFLAGS=-lm sudo aptitude install -y $(< requirements) && pip install -r test_requirements.txt --use-mirrors
+
 # command to run tests
 script: sudo ./install-opencv.sh && make ci_test
-#script: sudo find / -name 'cv2.so'
