@@ -11,6 +11,8 @@
 # code adapted from remotecv's image module (http://github.com/globocom/remotecv)
 
 import cv
+import cv2
+import numpy as np
 
 class Image:
     @classmethod
@@ -27,12 +29,14 @@ class Image:
         return len(image_buffer) > 4 and image_buffer[:4] != 'GIF8'
 
     def set_image_buffer(self, image_buffer):
-        buffer_len = len(image_buffer)
-        imagefiledata = cv.CreateMatHeader(1, buffer_len, cv.CV_8UC1)
-        cv.SetData(imagefiledata, image_buffer, buffer_len)
-        self.image = cv.DecodeImage(imagefiledata, cv.CV_LOAD_IMAGE_COLOR)
-        self.size = cv.GetSize(self.image)
+        #buffer_len = len(image_buffer)
+        #imagefiledata = cv.CreateMatHeader(1, buffer_len, cv.CV_8UC1)
+        #cv.SetData(imagefiledata, image_buffer, buffer_len)
+        #self.image = cv.DecodeImage(imagefiledata, cv.CV_LOAD_IMAGE_COLOR)
+        #self.size = cv.GetSize(self.image)
         self.mode = "BGR"
+        buffer_array = np.fromstring(image_buffer, dtype=np.uint8)
+        self.image = cv2.imdecode(buffer_array, 1)
 
     def grayscale(self):
         convert_mode = getattr(cv, 'CV_%s2GRAY' % self.mode)
@@ -41,4 +45,7 @@ class Image:
         cv.CvtColor(self.image, gray, convert_mode)
         cv.EqualizeHist(gray, gray)
         self.image = gray
+
+    def to_array(self):
+        return np.array(self.image, dtype=np.uint8)
 
