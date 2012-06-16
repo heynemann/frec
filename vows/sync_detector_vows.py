@@ -22,6 +22,10 @@ test_data = [
     (image_path(1, 3), 7, 24, 74, 74),
 ]
 
+not_found = [
+    image_path(1, 2),
+]
+
 def _read(path):
     with open(path, 'rb') as f:
         return f.read()
@@ -34,7 +38,7 @@ class SyncDetector(Vows.Context):
                 file_path, x, y, w, h = data
 
                 img = image.Image.create_from_buffer(_read(file_path))
-                det = detector.CascadedDetector(min_neighbors=3, scale_factor=1.1, min_size=(20,20))
+                det = detector.CascadedDetector(min_neighbors=5, scale_factor=1.1, min_size=(20,20))
                 yield (det.detect(img.to_array()), x, y, w, h)
 
         def should_not_be_none(self, (topic, x, y, w, h)):

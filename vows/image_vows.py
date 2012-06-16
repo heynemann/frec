@@ -30,13 +30,13 @@ class ImageModule(Vows.Context):
             expect(topic.image).not_to_be_null()
 
 
-        class GreyImage(Vows.Context):
-            def topic(self, img):
-                img.grayscale()
-                return img
+        #class GreyImage(Vows.Context):
+            #def topic(self, img):
+                #img.grayscale()
+                #return img
 
-            def should_have_image_property(self, topic):
-                expect(topic.image).not_to_be_null()
+            #def should_have_image_property(self, topic):
+                #expect(topic.image).not_to_be_null()
 
 
     class FromInvalidBuffer(Vows.Context):
