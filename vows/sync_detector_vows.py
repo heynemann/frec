@@ -17,7 +17,7 @@ import frec.detectors.sync_detector as detector
 
 ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
 test_data = (
-    path.join(ROOT_PATH, 's1', '1.pgm'),
+    (path.join(ROOT_PATH, 's1', '1.pgm'), 9, 29, 74, 74),
 )
 
 def _read(path):
@@ -29,13 +29,25 @@ class SyncDetector(Vows.Context):
     class ShouldReturnDetectedItemsInPicture(Vows.Context):
         def topic(self):
             for data in test_data:
-                img = image.Image.create_from_buffer(_read(data))
-                det = detector.CascadedDetector(min_neighbors=3, scale_factor=1.1, min_size=(20,20))
-                yield det.detect(img.to_array())
+                file_path, x, y, w, h = data
 
-        def should_not_be_none(self, topic):
+                img = image.Image.create_from_buffer(_read(file_path))
+                det = detector.CascadedDetector(min_neighbors=3, scale_factor=1.1, min_size=(20,20))
+                yield (det.detect(img.to_array()), x, y, w, h)
+
+        def should_not_be_none(self, (topic, x, y, w, h)):
             expect(topic).not_to_be_null()
 
-        def should_not_be_empty(self, topic):
+        def should_not_be_empty(self, (topic, x, y, w, h)):
             expect(topic).not_to_be_empty()
             print topic
+
+        def should_have_found_one_face(self, (topic, x, y, w, h)):
+            expect(topic).to_length(1)
+
+        def should_have_proper_dimensions(self, (topic, x, y, w, h)):
+            expect(topic[0].x).to_equal(x)
+            expect(topic[0].y).to_equal(y)
+            expect(topic[0].width).to_equal(w)
+            expect(topic[0].height).to_equal(h)
+
