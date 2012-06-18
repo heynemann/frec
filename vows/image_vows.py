@@ -29,33 +29,47 @@ class ImageModule(Vows.Context):
         def should_have_image_property(self, topic):
             expect(topic.image).not_to_be_null()
 
+        def should_have_proper_size(self, topic):
+            expect(topic.size[0]).to_equal(300)
+            expect(topic.size[1]).to_equal(130)
 
-        #class GreyImage(Vows.Context):
-            #def topic(self, img):
-                #img.grayscale()
-                #return img
-
-            #def should_have_image_property(self, topic):
-                #expect(topic.image).not_to_be_null()
+        def should_have_proper_channels(self, topic):
+            expect(topic.color_channels).to_equal(3)
 
 
-    class FromInvalidBuffer(Vows.Context):
-        def topic(self):
-            return image.Image.create_from_buffer('not')
+        class GreyImage(Vows.Context):
+            def topic(self, img):
+                img.grayscale()
+                return img
 
-        def should_be_null(self, topic):
-            expect(topic).to_be_null()
+            def should_have_image_property(self, topic):
+                expect(topic.image).not_to_be_null()
+
+            def should_have_proper_size(self, topic):
+                expect(topic.size[0]).to_equal(300)
+                expect(topic.size[1]).to_equal(130)
+
+            def should_have_proper_channels(self, topic):
+                expect(topic.color_channels).to_equal(1)
 
 
-    class ValidImage(Vows.Context):
-        def topic(self):
-            with open(IMAGE_PATH, 'r') as img:
-                data = img.read()
+    #class FromInvalidBuffer(Vows.Context):
+        #def topic(self):
+            #return image.Image.create_from_buffer('not')
 
-            img = image.Image.create_from_buffer(data)
-            return img.is_valid(data)
+        #def should_be_null(self, topic):
+            #expect(topic).to_be_null()
 
-        def should_be_true(self, topic):
-            expect(topic).to_be_true()
+
+    #class ValidImage(Vows.Context):
+        #def topic(self):
+            #with open(IMAGE_PATH, 'r') as img:
+                #data = img.read()
+
+            #img = image.Image.create_from_buffer(data)
+            #return img.is_valid(data)
+
+        #def should_be_true(self, topic):
+            #expect(topic).to_be_true()
 
 
