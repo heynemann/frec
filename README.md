@@ -19,3 +19,12 @@ facerec
 frec is based on the incredible work done by [Philipp
 Wagner](https://github.com/bytefish) in his
 [facerec](https://github.com/bytefish/facerec) project.
+
+algorithms
+----------
+
+frec draws on the work of many bright individuals. These are some papers and or
+reference work that helped us along the way:
+
+* [Enhanced Local Texture Feature Sets for Face Recognition Under Difﬁcult Lighting Conditions](http://lear.inrialpes.fr/pubs/2007/TT07/Tan-amfg07a.pdf) - by Xiaoyang Tan and Bill Triggs
+
