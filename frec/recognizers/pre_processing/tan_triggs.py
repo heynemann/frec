@@ -40,5 +40,11 @@ class TanTriggsPreProcessing(AbstractFeature):
         return x
 
     def __repr__(self):
-        return "TanTriggsPreprocessing (alpha=%.3f,tau=%.3f,gamma=%.3f,sigma0=%.3f,sigma1=%.3f)" % (self._alpha,self._tau,self._gamma,self._sigma0,self._sigma1)
+        return "TanTriggsPreprocessing (alpha=%.3f,tau=%.3f,gamma=%.3f,sigma0=%.3f,sigma1=%.3f)" % (
+            self.alpha,
+            self.tau,
+            self.gamma,
+            self.sigma0,
+            self.sigma1
+        )
 

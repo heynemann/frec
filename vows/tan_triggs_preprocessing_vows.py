@@ -41,6 +41,9 @@ class TanTriggsPreProcessing(Vows.Context):
     def should_be_instance_of(self, topic):
         expect(topic).to_be_instance_of(proc.TanTriggsPreProcessing)
 
+    def should_have_proper_representation(self, topic):
+        expect(str(topic)).to_equal('TanTriggsPreprocessing (alpha=0.100,tau=10.000,gamma=0.200,sigma0=1.000,sigma1=2.000)')
+
     class WhenPreprocessingImage(Vows.Context):
         def topic(self, pre_processor):
             images = defaultdict(list)
