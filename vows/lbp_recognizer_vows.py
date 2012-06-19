@@ -50,21 +50,21 @@ class LbpRecognizer(Vows.Context):
             expect(topic).to_be_empty()
 
 
-    class AfterTrainingHalf(Vows.Context):
-        def topic(self):
-            for data in half_test_data:
-                person, picture, file_path = data
-                img = image.Image.create_from_buffer(_read(file_path))
-                recognizer = lbp.Recognizer()
-                recognizer.train(person, img)
+    #class AfterTrainingHalf(Vows.Context):
+        #def topic(self):
+            #for data in half_test_data:
+                #person, picture, file_path = data
+                #img = image.Image.create_from_buffer(_read(file_path))
+                #recognizer = lbp.Recognizer()
+                #recognizer.train(person, img)
 
-            for data in half_test_data:
-                person, picture, file_path = data
-                img = image.Image.create_from_buffer(_read(file_path))
-                yield (recognizer, person, picture, recognizer.recognize(img))
+            #for data in half_test_data:
+                #person, picture, file_path = data
+                #img = image.Image.create_from_buffer(_read(file_path))
+                #yield (recognizer, person, picture, recognizer.recognize(img))
 
 
-        def should_be_right_person(self, (recognizer, person, picture, topic)):
-            expect(topic).to_include(person)
-            expect(topic[person]).to_be_greater_than(80)
+        #def should_be_right_person(self, (recognizer, person, picture, topic)):
+            #expect(topic).to_include(person)
+            #expect(topic[person]).to_be_greater_than(80)
 
