@@ -6,7 +6,7 @@
 
 # licensed under the mit license:
 # http://www.opensource.org/licenses/mit-license
-# copyright (c) 2011 bernardo heynemann heynemann@gmail.com
+# copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
 import os.path as path
 

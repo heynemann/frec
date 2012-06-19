@@ -6,7 +6,7 @@
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
 class Face():
     def __init__(self, x, y, width, height):
