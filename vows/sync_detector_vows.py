@@ -46,7 +46,6 @@ class SyncDetector(Vows.Context):
 
         def should_not_be_empty(self, (topic, x, y, w, h)):
             expect(topic).not_to_be_empty()
-            print topic
 
         def should_have_found_one_face(self, (topic, x, y, w, h)):
             expect(topic).to_length(1)
