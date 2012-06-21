@@ -32,7 +32,7 @@ script:
     - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages/
 
     # install opencv
-    - sudo ./install-opencv.sh
+    - ./install-opencv.sh
 
     # finally run tests
     - make ci_test
