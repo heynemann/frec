@@ -80,3 +80,5 @@ libjpeg-dev
 libgtk2.0-0
 libgtk2.0-dev
 gtk2-engines-pixbuf
+python-numpy
+python-scipy
