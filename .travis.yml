@@ -3,17 +3,29 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-    #- sudo apt-get remove -y ffmpeg x264 libx264-dev
-    #- sudo apt-get update -y
+    # update aptitude
+    - sudo apt-get remove -y ffmpeg x264 libx264-dev
+    - sudo apt-get update -y
+
+    # install aptitude packages
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
-    #- sudo find / -name 'matlib.py'
+
+    # weird travis-ci python paths
     - export PYTHONPATH=$PYTHONPATH:/usr/lib/pymodules/python2.7/
     - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages/
+
+    # verify both requirements were met
     - INSTALLDIR=$(python -c "import os; import numpy; print(os.path.dirname(numpy.__file__))")
+    - INSTALLDIR=$(python -c "import os; import scipy; print(os.path.dirname(scipy.__file__))")
+
+    # install python requirements
     - pip install -r test_requirements.txt --use-mirrors
 
 # command to run tests
 script:
+    # install opencv
     - sudo ./install-opencv.sh
+
+    # finally run tests
     - PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ make ci_test
 
