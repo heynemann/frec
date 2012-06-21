@@ -26,6 +26,10 @@ script:
     # install opencv
     - sudo ./install-opencv.sh
 
+    # weird travis-ci python paths
+    - export PYTHONPATH=$PYTHONPATH:/usr/lib/pymodules/python2.7/
+    - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages/
+
     # finally run tests
-    - PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ make ci_test
+    - make ci_test
 
