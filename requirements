@@ -5,5 +5,7 @@ python-pycurl-dbg
 librtmp-dev
 libatlas-base-dev
 gfortran
+liblapack-dev
+libblas-dev
 python-numpy
 python-scipy
