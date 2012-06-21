@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 # command to install dependencies
-install: LDFLAGS=-lm sudo aptitude install -y $(< requirements) && PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ pip install -r test_requirements.txt --use-mirrors
+install: sudo apt-get remove -y ffmpeg x264 libx264-dev && sudo apt-get update -y && LDFLAGS=-lm sudo aptitude install -y $(< requirements) && PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ pip install -r test_requirements.txt --use-mirrors
 
 # command to run tests
 script: sudo ./install-opencv.sh && PYTHONPATH=$PYTHONPATH:.:/usr/local/lib/python2.7/site-packages/ make ci_test
