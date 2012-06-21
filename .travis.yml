@@ -9,7 +9,6 @@ install:
 
     # install aptitude packages
     - LDFLAGS=-lm sudo aptitude install -y $(< requirements)
-    - sudo find / -name 'cv2.so'
 
     # weird travis-ci python paths
     - export PYTHONPATH=$PYTHONPATH:/usr/lib/pymodules/python2.7/
@@ -20,7 +19,6 @@ install:
     # verify both requirements were met
     - INSTALLDIR=$(python -c "import os; import numpy; print(os.path.dirname(numpy.__file__))")
     - INSTALLDIR=$(python -c "import os; import scipy; print(os.path.dirname(scipy.__file__))")
-    - INSTALLDIR=$(python -c "import os; import cv2; print(os.path.dirname(cv2.__file__))")
 
     # install python requirements
     - pip install -r test_requirements.txt --use-mirrors
