@@ -8,10 +8,12 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from remotecv's image module (http://github.com/globocom/remotecv)
+# code adapted from remotecv's image module
+# (http://github.com/globocom/remotecv)
 
 import cv2
 import numpy as np
+
 
 class Image:
     @classmethod
@@ -50,4 +52,3 @@ class Image:
 
     def to_array(self):
         return np.array(self.image, dtype=np.uint8)
-
