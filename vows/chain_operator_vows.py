@@ -8,64 +8,65 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
-#import os.path as path
-#from collections import defaultdict
+import os.path as path
+from collections import defaultdict
 
-#from pyvows import Vows, expect
+from pyvows import Vows, expect
 
-#import frec.recognizers.operators as op
-#import frec.image as image
+import frec.recognizers.features.operators as op
+import frec.image as image
+from frec.recognizers.features import AbstractFeature
 
-#ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-#image_path = lambda person, picture: path.join(
-    #ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
+ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
+image_path = lambda person, picture: path.join(
+    ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
 
-#test_data = []
-#for person in range(1, 41):
-    #for picture in range(1, 10):
-        #test_data.append((person, picture, image_path(person, picture)))
+test_data = []
+for person in range(1, 41):
+    for picture in range(1, 10):
+        test_data.append((person, picture, image_path(person, picture)))
 
-#cache = {}
-
-
-#def _read(path):
-    #if path in cache:
-        #return cache[path]
-    #with open(path, 'rb') as f:
-        #contents = f.read()
-        #cache[path] = contents
-        #return contents
+cache = {}
 
 
-#@Vows.batch
-#class TanTriggsPreProcessing(Vows.Context):
-    #def topic(self):
-        #return op.ChainOperator()
+def _read(path):
+    if path in cache:
+        return cache[path]
+    with open(path, 'rb') as f:
+        contents = f.read()
+        cache[path] = contents
+        return contents
 
-    #def should_be_instance_of(self, topic):
-        #expect(topic).to_be_instance_of(op.ChainOperator)
+class MockFeature(AbstractFeature):
+    def __init__(self, name):
+        self.name = name
 
-    #def should_have_proper_representation(self, topic):
-        #expect(str(topic)).to_equal('ChainOperator()')
+    def compute(self, x, y):
+        return "Mock compute %s %s %s" % (self.name, x, y)
 
-    #class WhenPreprocessingImage(Vows.Context):
-        #def topic(self, pre_processor):
-            #images = defaultdict(list)
-            #for data in test_data:
-                #person, picture, file_path = data
-                #img = image.Image.create_from_buffer(_read(file_path))
-                #images[person].append(
-                    #img.to_array()
-                #)
+    def extract(self, x):
+        return "Mock extract %s %s" % (self.name, x)
 
-            #people = []
-            #images_list = []
-            #for person, images in images.iteritems():
-                #people.append(person)
-                #images_list.append(images)
+    def __repr__(self):
+        return "MockOperator %s" % self.name
 
-            #return pre_processor.compute(images_list, people)
 
-        #def should_not_be_empty(self, topic):
-            #expect(topic).not_to_be_null()
-            #expect(topic).not_to_be_an_error()
+@Vows.batch
+class TanTriggsPreProcessing(Vows.Context):
+    def topic(self):
+        return op.ChainOperator(MockFeature('1'), MockFeature('2'))
+
+    def should_be_instance_of(self, topic):
+        expect(topic).to_be_instance_of(op.ChainOperator)
+
+    def should_have_proper_representation(self, topic):
+        expect(str(topic)).to_equal('ChainOperator(MockOperator 1,MockOperator 2)')
+
+    class WhenExtractCalled(Vows.Context):
+        def topic(self, operator):
+            return operator.extract("something")
+
+        def should_run_both_extractors(self, topic):
+            expect(topic).to_equal('Mock extract 2 Mock extract 1 something')
+
+
