@@ -12,6 +12,7 @@ from pyvows import Vows, expect
 
 import frec.recognizers.features as features
 
+
 @Vows.batch
 class AbstractFeature(Vows.Context):
     def topic(self):
@@ -28,7 +29,6 @@ class AbstractFeature(Vows.Context):
             expect(topic).to_be_an_error()
             expect(topic).to_be_an_error_like(NotImplementedError)
 
-
     class WhenCallingExtract(Vows.Context):
         def topic(self, feature):
             return feature.extract(1, 1)
@@ -37,12 +37,9 @@ class AbstractFeature(Vows.Context):
             expect(topic).to_be_an_error()
             expect(topic).to_be_an_error_like(NotImplementedError)
 
-
     class StringRepresentation(Vows.Context):
         def topic(self, feature):
             return str(feature)
 
         def should_be_abstract_feature(self, topic):
             expect(topic).to_equal('AbstractFeature')
-
-
