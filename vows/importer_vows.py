@@ -49,4 +49,3 @@ class ImporterVows(Vows.Context):
                 else:
                     expect(topic[0]).not_to_be_null()
                     expect(topic[0]).to_equal(topic[1])
-

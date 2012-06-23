@@ -53,14 +53,12 @@ class ImageModule(Vows.Context):
             def should_have_proper_channels(self, topic):
                 expect(topic.color_channels).to_equal(1)
 
-
     class FromInvalidBuffer(Vows.Context):
         def topic(self):
             return image.Image.create_from_buffer('not')
 
         def should_be_null(self, topic):
             expect(topic).to_be_null()
-
 
     class ValidImage(Vows.Context):
         def topic(self):
