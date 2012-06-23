@@ -8,9 +8,11 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from thumbor's importer module (http://github.com/globocom/thumbor)
+# code adapted from thumbor's importer module
+# (http://github.com/globocom/thumbor)
 
 from frec.utils import logger
+
 
 class Importer:
     def __init__(self, config):
@@ -43,13 +45,16 @@ class Importer:
                 for module_name in conf_value:
                     try:
                         if class_name is not None:
-                            module = self.import_class('%s.%s' % (module_name, class_name))
+                            module = self.import_class(
+                                '%s.%s' % (module_name, class_name))
                         else:
-                            module = self.import_class(module_name, get_module=True)
+                            module = self.import_class(
+                                module_name, get_module=True)
                         modules.append(module)
                     except ImportError:
                         if ignore_errors:
-                            logger.warn('Module %s could not be imported.' % module_name)
+                            logger.warn('Module %s could not be imported.' %
+                                 module_name)
                         else:
                             raise
             setattr(self, config_key.lower(), tuple(modules))
@@ -59,4 +64,3 @@ class Importer:
             else:
                 module = self.import_class(conf_value, get_module=True)
             setattr(self, config_key.lower(), module)
-
