@@ -8,9 +8,11 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
-# code adapted from facerec's feature module (https://github.com/bytefish/facerec)
+# code adapted from facerec's feature module
+# (https://github.com/bytefish/facerec)
 
 from frec.recognizers.features import AbstractFeature
+
 
 class FeatureOperator(AbstractFeature):
     """
@@ -29,6 +31,7 @@ class FeatureOperator(AbstractFeature):
 
     def __repr__(self):
         return "FeatureOperator(" + repr(self.first_feature) + "," + repr(self.second_feature) + ")"
+
 
 class ChainOperator(FeatureOperator):
     """
@@ -53,4 +56,3 @@ class ChainOperator(FeatureOperator):
 
     def __repr__(self):
         return "ChainOperator(" + repr(self.first_feature) + "," + repr(self.second_feature) + ")"
-
