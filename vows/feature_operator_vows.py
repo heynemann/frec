@@ -24,8 +24,8 @@ class FeatureOperator(Vows.Context):
             expect(topic).to_be_instance_of(operators.FeatureOperator)
 
         def should_have_both_models(self, topic):
-            expect(topic.model1).to_be_instance_of(features.AbstractFeature)
-            expect(topic.model2).to_be_instance_of(features.AbstractFeature)
+            expect(topic.first_feature).to_be_instance_of(features.AbstractFeature)
+            expect(topic.second_feature).to_be_instance_of(features.AbstractFeature)
 
         class StringRepresentation(Vows.Context):
             def topic(self, feature):
