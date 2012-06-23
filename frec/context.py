@@ -8,7 +8,9 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from thumbor's context module (http://github.com/globocom/thumbor)
+# code adapted from thumbor's context module
+# (http://github.com/globocom/thumbor)
+
 
 class Context:
     '''
@@ -45,4 +47,3 @@ class ContextImporter:
         #self.engine = None
         #if importer.engine:
             #self.engine = importer.engine(context)
-
