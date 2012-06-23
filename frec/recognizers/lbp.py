@@ -8,6 +8,7 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
+
 class Recognizer(object):
     def __init__(self):
         pass
@@ -17,5 +18,3 @@ class Recognizer(object):
 
     def train(self, person, image):
         pass
-
-
