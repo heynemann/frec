@@ -8,12 +8,17 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from thumbor's file loader module (http://github.com/globocom/thumbor)
+# code adapted from thumbor's file loader module
+# (http://github.com/globocom/thumbor)
 
 from os.path import join, exists
 
+
 def load(context, path, callback):
-    file_path = join(context.config.FILE_LOADER_ROOT_PATH.rstrip('/'), path.lstrip('/'))
+    file_path = join(
+        context.config.FILE_LOADER_ROOT_PATH.rstrip('/'),
+        path.lstrip('/')
+    )
 
     if not exists(file_path):
         callback(None)
