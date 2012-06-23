@@ -13,11 +13,13 @@ from pyvows import Vows, expect
 
 import frec.image as image
 
-IMAGE_PATH = path.abspath(path.join(path.dirname(__file__), 'fixtures', 'image.jpg'))
+IMAGE_PATH = path.abspath(
+    path.join(path.dirname(__file__), 'fixtures', 'image.jpg')
+)
+
 
 @Vows.batch
 class ImageModule(Vows.Context):
-
 
     class FromBuffer(Vows.Context):
         def topic(self):
@@ -36,7 +38,6 @@ class ImageModule(Vows.Context):
         def should_have_proper_channels(self, topic):
             expect(topic.color_channels).to_equal(3)
 
-
         class GreyImage(Vows.Context):
             def topic(self, img):
                 img.grayscale()
@@ -53,23 +54,21 @@ class ImageModule(Vows.Context):
                 expect(topic.color_channels).to_equal(1)
 
 
-    #class FromInvalidBuffer(Vows.Context):
-        #def topic(self):
-            #return image.Image.create_from_buffer('not')
+    class FromInvalidBuffer(Vows.Context):
+        def topic(self):
+            return image.Image.create_from_buffer('not')
 
-        #def should_be_null(self, topic):
-            #expect(topic).to_be_null()
-
-
-    #class ValidImage(Vows.Context):
-        #def topic(self):
-            #with open(IMAGE_PATH, 'r') as img:
-                #data = img.read()
-
-            #img = image.Image.create_from_buffer(data)
-            #return img.is_valid(data)
-
-        #def should_be_true(self, topic):
-            #expect(topic).to_be_true()
+        def should_be_null(self, topic):
+            expect(topic).to_be_null()
 
 
+    class ValidImage(Vows.Context):
+        def topic(self):
+            with open(IMAGE_PATH, 'r') as img:
+                data = img.read()
+
+            img = image.Image.create_from_buffer(data)
+            return img.is_valid(data)
+
+        def should_be_true(self, topic):
+            expect(topic).to_be_true()

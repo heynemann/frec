@@ -13,6 +13,7 @@ from pyvows import Vows, expect
 import frec.recognizers.features as features
 import frec.recognizers.features.operators as operators
 
+
 @Vows.batch
 class FeatureOperator(Vows.Context):
     class WithProperFeatures(Vows.Context):
@@ -31,8 +32,9 @@ class FeatureOperator(Vows.Context):
                 return str(feature)
 
             def should_be_abstract_feature(self, topic):
-                expect(topic).to_equal('FeatureOperator(AbstractFeature,AbstractFeature)')
-
+                expect(topic).to_equal(
+                    'FeatureOperator(AbstractFeature,AbstractFeature)'
+                )
 
     class WithInvalidFeatures(Vows.Context):
         def topic(self):

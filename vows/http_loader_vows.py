@@ -16,9 +16,11 @@ import frec.loaders.http_loader as loader
 from frec.context import Context
 from frec.config import Config
 
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write('Hello')
+
 
 class ResponseMock:
     def __init__(self, error=None, content_type=None, body=None):
@@ -33,6 +35,7 @@ class ResponseMock:
 
         self.body = body
 
+
 @Vows.batch
 class ReturnContentVows(Vows.Context):
     class ShouldReturnNoneOnError(Vows.Context):
@@ -42,7 +45,7 @@ class ReturnContentVows(Vows.Context):
 
         def should_be_none(self, topic):
             expect(topic.args[0]).to_be_null()
- 
+
     class ShouldReturnNoneOnInvalidContentType(Vows.Context):
         @Vows.async_topic
         def topic(self, callback):
@@ -58,6 +61,7 @@ class ReturnContentVows(Vows.Context):
 
         def should_be_none(self, topic):
             expect(topic.args[0]).to_equal('body')
+
 
 @Vows.batch
 class HttpLoader(TornadoHTTPContext):
@@ -84,7 +88,9 @@ class HttpLoader(TornadoHTTPContext):
                 config = Config()
                 config.ALLOWED_SOURCES = []
                 ctx = Context(None, config, None)
-                is_valid = loader.validate(ctx, 'http://www.google.com/logo.jpg')
+                is_valid = loader.validate(
+                    ctx, 'http://www.google.com/logo.jpg'
+                )
                 return is_valid
 
             def should_validate(self, topic):
@@ -126,4 +132,3 @@ class HttpLoader(TornadoHTTPContext):
 
             def should_equal_hello(self, topic):
                 expect(topic).to_equal('Hello')
-

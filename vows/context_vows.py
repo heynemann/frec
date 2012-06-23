@@ -14,6 +14,7 @@ from frec.config import Config
 from frec.context import Context, ServerParameters, ContextImporter
 from frec.importer import Importer
 
+
 @Vows.batch
 class ContextVows(Vows.Context):
 
@@ -35,6 +36,7 @@ class ContextVows(Vows.Context):
 
             def should_have_importer(self, topic):
                 expect(topic.modules).to_be_instance_of(ContextImporter)
+
 
 @Vows.batch
 class ServerParameterVows(Vows.Context):
@@ -68,4 +70,3 @@ class ServerParameterVows(Vows.Context):
 
         def should_have_null_app_class(self, topic):
             expect(topic.app_class).to_be_null()
-

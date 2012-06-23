@@ -16,7 +16,9 @@ import frec.recognizers.lbp as lbp
 import frec.image as image
 
 ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-image_path = lambda person, picture: path.join(ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
+image_path = lambda person, picture: path.join(
+    ROOT_PATH, 's%d' % person, '%d.pgm' % picture
+)
 
 test_data = []
 for person in range(1, 41):
@@ -29,12 +31,16 @@ for person in range(1, 21):
         half_test_data.append((person, picture, image_path(person, picture)))
 
 cache = {}
+
+
 def _read(path):
-    if path in cache: return cache[path]
+    if path in cache:
+        return cache[path]
     with open(path, 'rb') as f:
         contents = f.read()
         cache[path] = contents
         return contents
+
 
 @Vows.batch
 class LbpRecognizer(Vows.Context):
@@ -64,7 +70,6 @@ class LbpRecognizer(Vows.Context):
                 #yield (recognizer, person, picture, recognizer.recognize(img))
 
 
-        #def should_be_right_person(self, (recognizer, person, picture, topic)):
+        # def should_be_right(self, (recognizer, person, picture, topic)):
             #expect(topic).to_include(person)
             #expect(topic[person]).to_be_greater_than(80)
-

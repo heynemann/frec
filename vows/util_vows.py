@@ -14,6 +14,7 @@ from pyvows import Vows, expect
 
 from frec.utils import logger, real_import
 
+
 @Vows.batch
 class UtilVows(Vows.Context):
 
@@ -42,7 +43,7 @@ class UtilVows(Vows.Context):
         class WhenUsingSubmodules(Vows.Context):
             def topic(self):
                 return real_import('frec.utils')
-            
+
             def should_not_be_an_error(self, topic):
                 expect(topic).not_to_be_an_error()
 
@@ -51,4 +52,3 @@ class UtilVows(Vows.Context):
 
             def should_return_module(self, topic):
                 expect(topic.logger).not_to_be_null()
-

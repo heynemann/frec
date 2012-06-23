@@ -18,6 +18,7 @@ test_data = [
     ('loader', file_loader),
 ]
 
+
 @Vows.batch
 class ImporterVows(Vows.Context):
 
@@ -49,25 +50,3 @@ class ImporterVows(Vows.Context):
                     expect(topic[0]).not_to_be_null()
                     expect(topic[0]).to_equal(topic[1])
 
-    #class ImportWithFixedValueVows(Vows.Context):
-
-        #class SingleItem(Vows.Context):
-            #def topic(self):
-                #importer = Importer(None)
-                #importer.import_item(config_key='file_storage', item_value='thumbor.storages.file_storage', class_name='Storage')
-                #return importer.file_storage
-
-            #def should_equal_file_storage(self, topic):
-                #expect(topic).to_equal(file_storage)
-
-        #class MultipleItems(Vows.Context):
-            #def topic(self):
-                #importer = Importer(None)
-                #importer.import_item(config_key='detectors', item_value=('thumbor.detectors.feature_detector', 'thumbor.detectors.feature_detector'), is_multiple=True)
-                #return importer.detectors
-
-            #def should_have_length_of_2(self, topic):
-                #expect(topic).to_length(2)
-
-            #def should_contain_both_detectors(self, topic):
-                #expect(topic).to_include(feature_detector)

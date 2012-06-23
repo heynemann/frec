@@ -24,6 +24,7 @@ os.makedirs('/tmp/frec')
 with open('/tmp/frec/test.txt', 'a') as f:
     f.write('test_data')
 
+
 @Vows.batch
 class FileLoaderVows(Vows.Context):
     class ShouldReturnNoneOnError(Vows.Context):
@@ -43,5 +44,3 @@ class FileLoaderVows(Vows.Context):
 
         def should_be_none(self, topic):
             expect(topic.args[0]).to_equal('test_data')
-
-

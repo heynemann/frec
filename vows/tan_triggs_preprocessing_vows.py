@@ -17,7 +17,9 @@ import frec.recognizers.pre_processing.tan_triggs as proc
 import frec.image as image
 
 ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-image_path = lambda person, picture: path.join(ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
+image_path = lambda person, picture: path.join(
+    ROOT_PATH, 's%d' % person, '%d.pgm' % picture
+)
 
 test_data = []
 for person in range(1, 41):
@@ -25,8 +27,11 @@ for person in range(1, 41):
         test_data.append((person, picture, image_path(person, picture)))
 
 cache = {}
+
+
 def _read(path):
-    if path in cache: return cache[path]
+    if path in cache:
+        return cache[path]
     with open(path, 'rb') as f:
         contents = f.read()
         cache[path] = contents
@@ -49,7 +54,8 @@ class TanTriggsPreProcessing(Vows.Context):
             images = defaultdict(list)
             for data in test_data:
                 person, picture, file_path = data
-                images[person].append(image.Image.create_from_buffer(_read(file_path)).to_array())
+                img = image.Image.create_from_buffer(_read(file_path))
+                images[person].append(img.to_array())
 
             people = []
             images_list = []
@@ -62,5 +68,3 @@ class TanTriggsPreProcessing(Vows.Context):
         def should_not_be_empty(self, topic):
             expect(topic).not_to_be_null()
             expect(topic).not_to_be_an_error()
-
-
