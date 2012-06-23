@@ -6,3 +6,4 @@ lxml
 numpy
 sphinx
 scipy
+autopep8
