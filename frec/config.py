@@ -8,14 +8,17 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from thumbor's config module (http://github.com/globocom/thumbor)
+# code adapted from thumbor's config module
+# (http://github.com/globocom/thumbor)
 
 import os
 from os.path import join, exists, expanduser, dirname, abspath
 import imp
 
+
 class ConfigurationError(RuntimeError):
     pass
+
 
 class Config(object):
     class_defaults = {}
@@ -46,7 +49,7 @@ class Config(object):
             path = cls.get_conf_file()
 
         with open(path) as config_file:
-            name='configuration'
+            name = 'configuration'
             code = config_file.read()
             module = imp.new_module(name)
             exec code in module.__dict__
@@ -98,4 +101,3 @@ Config.define('REDIS_STORAGE_SERVER_HOST', 'localhost')
 Config.define('REDIS_STORAGE_SERVER_PORT', 6379)
 Config.define('REDIS_STORAGE_SERVER_DB', 0)
 Config.define('REDIS_STORAGE_SERVER_PASSWORD', None)
-
