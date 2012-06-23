@@ -8,6 +8,7 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
+
 class Face():
     def __init__(self, x, y, width, height):
         self.x = x
