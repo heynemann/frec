@@ -8,7 +8,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2012 Bernardo Heynemann heynemann@gmail.com
 
-# code adapted from thumbor's http loader module (http://github.com/globocom/thumbor)
+# code adapted from thumbor's http loader module
+# (http://github.com/globocom/thumbor)
 
 import re
 from urlparse import urlparse
@@ -18,8 +19,10 @@ import tornado.httpclient
 
 http_client = None
 
+
 def _normalize_url(url):
     return url if url.startswith('http') else 'http://%s' % url
+
 
 def validate(context, url):
     if not context.config.ALLOWED_SOURCES:
@@ -32,11 +35,13 @@ def validate(context, url):
             return True
     return False
 
+
 def return_contents(response, callback):
     if response.error or not response.headers['Content-Type'][:6] == 'image/' or len(response.body) == 0:
         callback(None)
     else:
         callback(response.body)
+
 
 def load(context, url, callback):
     client = http_client
@@ -45,4 +50,3 @@ def load(context, url, callback):
 
     url = _normalize_url(url)
     client.fetch(url, callback=partial(return_contents, callback=callback))
-
