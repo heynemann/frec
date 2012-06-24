@@ -56,3 +56,20 @@ class ChainOperator(FeatureOperator):
 
     def __repr__(self):
         return "ChainOperator(" + repr(self.first_feature) + "," + repr(self.second_feature) + ")"
+
+
+class LBPOperator(object):
+    def __init__(self, neighbors):
+        self._neighbors = neighbors
+
+    def __call__(self, x):
+        raise NotImplementedError("Every LBPOperator must implement the __call__ method.")
+
+    @property
+    def neighbors(self):
+        return self._neighbors
+
+    def __repr__(self):
+        return "LBPOperator (neighbors=%s)" % self.neighbors
+
+

@@ -8,35 +8,10 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
-import os.path as path
-from collections import defaultdict
-
 from pyvows import Vows, expect
 
 import frec.recognizers.features.operators as op
-import frec.image as image
 from frec.recognizers.features import AbstractFeature
-
-ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-image_path = lambda person, picture: path.join(
-    ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
-
-test_data = []
-for person in range(1, 41):
-    for picture in range(1, 10):
-        test_data.append((person, picture, image_path(person, picture)))
-
-cache = {}
-
-
-def _read(path):
-    if path in cache:
-        return cache[path]
-    with open(path, 'rb') as f:
-        contents = f.read()
-        cache[path] = contents
-        return contents
-
 
 class MockFeature(AbstractFeature):
     def __init__(self, name):
