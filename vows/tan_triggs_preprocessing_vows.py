@@ -22,8 +22,8 @@ image_path = lambda person, picture: path.join(
 )
 
 test_data = []
-for person in range(1, 41):
-    for picture in range(1, 10):
+for person in range(1, 3):
+    for picture in range(1, 3):
         test_data.append((person, picture, image_path(person, picture)))
 
 cache = {}

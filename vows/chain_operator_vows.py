@@ -69,4 +69,11 @@ class TanTriggsPreProcessing(Vows.Context):
         def should_run_both_extractors(self, topic):
             expect(topic).to_equal('Mock extract 2 Mock extract 1 something')
 
+    class WhenComputeCalled(Vows.Context):
+        def topic(self, operator):
+            return operator.compute("something1", "something2")
+
+        def should_run_both_computes(self, topic):
+            expect(topic).to_equal('Mock extract 2 Mock extract 1 something')
+
 
