@@ -11,6 +11,8 @@
 # code adapted from facerec's feature module
 # (https://github.com/bytefish/facerec)
 
+import numpy as np
+
 from frec.recognizers.features import AbstractFeature
 
 
@@ -72,4 +74,79 @@ class LBPOperator(object):
     def __repr__(self):
         return "LBPOperator (neighbors=%s)" % self.neighbors
 
+class ExtendedLBP(LBPOperator):
+    def __init__(self, radius=1, neighbors=8):
+        LBPOperator.__init__(self, neighbors=neighbors)
+        self._radius = radius
 
+    def __call__(self, x):
+        x = np.asanyarray(x)
+        y_size, x_size = x.shape[0], x.shape[1]
+
+        # define circle
+        angles = 2 * np.pi / self._neighbors
+        theta = np.arange(0,2 * np.pi, angles)
+
+        # calculate sample points on circle with radius
+        sample_points = np.array([-np.sin(theta), np.cos(theta)]).T
+        sample_points *= self._radius
+
+        # find boundaries of the sample points
+        min_y=min(sample_points[:, 0])
+        max_y=max(sample_points[:, 0])
+        min_x=min(sample_points[:, 1])
+        max_x=max(sample_points[:, 1])
+
+        # calculate block size, each LBP code is computed within a block of size bsizey*bsizex
+        block_size_y = np.ceil(max(max_y, 0)) - np.floor(min(min_y, 0)) + 1
+        block_size_x = np.ceil(max(max_x, 0)) - np.floor(min(min_x, 0)) + 1
+
+        # coordinates of origin (0,0) in the block
+        orig_y =  0 - np.floor(min(min_y, 0))
+        orig_x =  0 - np.floor(min(min_x, 0))
+
+        # calculate output image size
+        dx = x_size - block_size_x + 1
+        dy = y_size - block_size_y + 1
+
+        # get center points
+        c = np.asarray(x[orig_y:orig_y + dy, orig_x:orig_x + dx], dtype=np.uint8)
+        result = np.zeros((dy, dx), dtype=np.uint32)
+
+        for i, p in enumerate(sample_points):
+            # get coordinate in the block
+            sample_y, sample_x = p + (orig_y, orig_x)
+
+            # Calculate floors, ceils and rounds for the x and y.
+            fx = np.floor(sample_x)
+            fy = np.floor(sample_y)
+            cx = np.ceil(sample_x)
+            cy = np.ceil(sample_y)
+
+            # calculate fractional part
+            ty = sample_y - fy
+            tx = sample_x - fx
+
+            # calculate interpolation weights
+            w1 = (1 - tx) * (1 - ty)
+            w2 =      tx  * (1 - ty)
+            w3 = (1 - tx) *      ty
+            w4 =      tx  *      ty
+
+            # calculate interpolated image
+            n = w1 * x[fy:fy + dy, fx:fx + dx]
+            n += w2 * x[fy:fy + dy, cx:cx + dx]
+            n += w3 * x[cy:cy + dy, fx:fx + dx]
+            n += w4 * x[cy:cy + dy, cx:cx + dx]
+
+            # update LBP codes
+            delta = n >= c
+            result += (1 << i) * delta
+        return result
+
+    @property
+    def radius(self):
+        return self._radius
+
+    def __repr__(self):
+        return "ExtendedLBP (neighbors=%s, radius=%s)" % (self._neighbors, self._radius)
