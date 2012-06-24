@@ -13,6 +13,7 @@ from pyvows import Vows, expect
 import frec.recognizers.features.operators as op
 from frec.recognizers.features import AbstractFeature
 
+
 class MockFeature(AbstractFeature):
     def __init__(self, name):
         self.name = name

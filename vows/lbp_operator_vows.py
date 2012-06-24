@@ -87,4 +87,3 @@ class ExtendedLBPOperator(Vows.Context):
         def should_not_be_empty(self, topic):
             expect(topic).not_to_be_null()
             expect(topic).not_to_be_empty()
- 

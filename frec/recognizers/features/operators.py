@@ -65,7 +65,8 @@ class LBPOperator(object):
         self._neighbors = neighbors
 
     def __call__(self, x):
-        raise NotImplementedError("Every LBPOperator must implement the __call__ method.")
+        raise NotImplementedError(
+            "Every LBPOperator must implement the __call__ method.")
 
     @property
     def neighbors(self):
@@ -73,6 +74,7 @@ class LBPOperator(object):
 
     def __repr__(self):
         return "LBPOperator (neighbors=%s)" % self.neighbors
+
 
 class ExtendedLBP(LBPOperator):
     def __init__(self, radius=1, neighbors=8):
@@ -85,32 +87,36 @@ class ExtendedLBP(LBPOperator):
 
         # define circle
         angles = 2 * np.pi / self._neighbors
-        theta = np.arange(0,2 * np.pi, angles)
+        theta = np.arange(0, 2 * np.pi, angles)
 
         # calculate sample points on circle with radius
         sample_points = np.array([-np.sin(theta), np.cos(theta)]).T
         sample_points *= self._radius
 
         # find boundaries of the sample points
-        min_y=min(sample_points[:, 0])
-        max_y=max(sample_points[:, 0])
-        min_x=min(sample_points[:, 1])
-        max_x=max(sample_points[:, 1])
+        min_y = min(sample_points[:, 0])
+        max_y = max(sample_points[:, 0])
+        min_x = min(sample_points[:, 1])
+        max_x = max(sample_points[:, 1])
 
-        # calculate block size, each LBP code is computed within a block of size bsizey*bsizex
+        # calculate block size, each LBP code is computed within a block of
+        # size bsizey*bsizex
         block_size_y = np.ceil(max(max_y, 0)) - np.floor(min(min_y, 0)) + 1
         block_size_x = np.ceil(max(max_x, 0)) - np.floor(min(min_x, 0)) + 1
 
         # coordinates of origin (0,0) in the block
-        orig_y =  0 - np.floor(min(min_y, 0))
-        orig_x =  0 - np.floor(min(min_x, 0))
+        orig_y = 0 - np.floor(min(min_y, 0))
+        orig_x = 0 - np.floor(min(min_x, 0))
 
         # calculate output image size
         dx = x_size - block_size_x + 1
         dy = y_size - block_size_y + 1
 
         # get center points
-        c = np.asarray(x[orig_y:orig_y + dy, orig_x:orig_x + dx], dtype=np.uint8)
+        center_points = np.asarray(
+            x[orig_y:orig_y + dy, orig_x:orig_x + dx],
+            dtype=np.uint8
+        )
         result = np.zeros((dy, dx), dtype=np.uint32)
 
         for i, p in enumerate(sample_points):
@@ -129,9 +135,9 @@ class ExtendedLBP(LBPOperator):
 
             # calculate interpolation weights
             w1 = (1 - tx) * (1 - ty)
-            w2 =      tx  * (1 - ty)
-            w3 = (1 - tx) *      ty
-            w4 =      tx  *      ty
+            w2 = tx * (1 - ty)
+            w3 = (1 - tx) * ty
+            w4 = tx * ty
 
             # calculate interpolated image
             n = w1 * x[fy:fy + dy, fx:fx + dx]
@@ -140,7 +146,7 @@ class ExtendedLBP(LBPOperator):
             n += w4 * x[cy:cy + dy, cx:cx + dx]
 
             # update LBP codes
-            delta = n >= c
+            delta = n >= center_points
             result += (1 << i) * delta
         return result
 
@@ -153,7 +159,7 @@ class ExtendedLBP(LBPOperator):
 
 
 class LBP(AbstractFeature):
-    def __init__(self, lbp_operator=None, size = (8,8)):
+    def __init__(self, lbp_operator=None, size=(8, 8)):
         AbstractFeature.__init__(self)
 
         if lbp_operator is None:
@@ -186,21 +192,21 @@ class LBP(AbstractFeature):
         # calculate the grid geometry
         lbp_height, lbp_width = lbp_image.shape
         grid_rows, grid_cols = self.size
-        py = int(np.floor(lbp_height/grid_rows))
-        px = int(np.floor(lbp_width/grid_cols))
+        py = int(np.floor(lbp_height / grid_rows))
+        px = int(np.floor(lbp_width / grid_cols))
 
         enhanced_histogram = []
-        for row in range(0,grid_rows):
-            for col in range(0,grid_cols):
+        for row in range(0, grid_rows):
+            for col in range(0, grid_cols):
                 y_low = row * py
                 y_hi = (row + 1) * py
                 x_low = col * px
                 x_hi = (col + 1) * px
 
-                c_range = lbp_image[y_low:y_hi, x_low:x_hi]
+                center_points = lbp_image[y_low:y_hi, x_low:x_hi]
 
                 histogram = np.histogram(
-                    c_range,
+                    center_points,
                     bins=2 ** self.lbp_operator.neighbors,
                     range=(0, 2 ** self.lbp_operator.neighbors),
                     normed=True
