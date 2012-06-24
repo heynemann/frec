@@ -25,4 +25,5 @@ frec draws on the work of many bright individuals. These are some papers and or
 reference work that helped us along the way:
 
 * [Enhanced Local Texture Feature Sets for Face Recognition Under Difﬁcult Lighting Conditions](http://lear.inrialpes.fr/pubs/2007/TT07/Tan-amfg07a.pdf) - by Xiaoyang Tan and Bill Triggs
+* [Face Detection using LBP features](http://cs229.stanford.edu/proj2008/Jo-FaceDetectionUsingLBPfeatures.pdf) - by Jo Chang-yeon
 
