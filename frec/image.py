@@ -49,6 +49,7 @@ class Image:
         convert_mode = getattr(cv2, 'COLOR_%s2GRAY' % self.mode)
         self.image = cv2.cvtColor(self.image, convert_mode)
         self.image = cv2.equalizeHist(self.image)
+        return self
 
     def to_array(self):
         return np.array(self.image, dtype=np.uint8)
