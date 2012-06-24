@@ -37,6 +37,7 @@ def _read(path):
         cache[path] = contents
         return contents
 
+
 class MockFeature(AbstractFeature):
     def __init__(self, name):
         self.name = name
@@ -52,7 +53,7 @@ class MockFeature(AbstractFeature):
 
 
 @Vows.batch
-class TanTriggsPreProcessing(Vows.Context):
+class ChainOperator(Vows.Context):
     def topic(self):
         return op.ChainOperator(MockFeature('1'), MockFeature('2'))
 
@@ -60,7 +61,8 @@ class TanTriggsPreProcessing(Vows.Context):
         expect(topic).to_be_instance_of(op.ChainOperator)
 
     def should_have_proper_representation(self, topic):
-        expect(str(topic)).to_equal('ChainOperator(MockOperator 1,MockOperator 2)')
+        expect(str(topic)) \
+            .to_equal('ChainOperator(MockOperator 1,MockOperator 2)')
 
     class WhenExtractCalled(Vows.Context):
         def topic(self, operator):
@@ -75,5 +77,3 @@ class TanTriggsPreProcessing(Vows.Context):
 
         def should_run_both_computes(self, topic):
             expect(topic).to_equal('Mock extract 2 Mock extract 1 something')
-
-
