@@ -76,4 +76,4 @@ class ChainOperator(Vows.Context):
             return operator.compute("something1", "something2")
 
         def should_run_both_computes(self, topic):
-            expect(topic).to_equal('Mock extract 2 Mock extract 1 something')
+            expect(topic).to_equal('Mock compute 2 Mock compute 1 something1 something2 something2')
