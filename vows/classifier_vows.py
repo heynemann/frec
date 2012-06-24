@@ -12,6 +12,7 @@ from pyvows import Vows, expect
 
 import frec.recognizers.classifiers as cl
 
+
 @Vows.batch
 class AbstractClassifier(Vows.Context):
     def topic(self):
@@ -28,7 +29,6 @@ class AbstractClassifier(Vows.Context):
             expect(topic).to_be_an_error()
             expect(topic).to_be_an_error_like(NotImplementedError)
 
-
     class OnPredict(Vows.Context):
         def topic(self, classifier):
             return classifier.predict(1)
@@ -36,4 +36,3 @@ class AbstractClassifier(Vows.Context):
         def should_be_an_error(self, topic):
             expect(topic).to_be_an_error()
             expect(topic).to_be_an_error_like(NotImplementedError)
-

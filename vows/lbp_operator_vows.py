@@ -88,6 +88,7 @@ class ExtendedLBPOperator(Vows.Context):
             expect(topic).not_to_be_null()
             expect(topic).not_to_be_empty()
 
+
 @Vows.batch
 class LBP(Vows.Context):
     def topic(self):

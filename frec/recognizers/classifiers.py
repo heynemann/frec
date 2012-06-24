@@ -11,6 +11,7 @@
 # code adapted from facerec's classifier module
 # (https://github.com/bytefish/facerec)
 
+
 class AbstractClassifier(object):
     def compute(self, x, y):
         msg = "Every AbstractClassifier must implement the compute method."
@@ -19,5 +20,3 @@ class AbstractClassifier(object):
     def predict(self, x):
         msg = "Every AbstractClassifier must implement the predict method."
         raise NotImplementedError(msg)
-
-

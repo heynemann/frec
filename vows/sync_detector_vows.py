@@ -16,7 +16,8 @@ import frec.image as image
 import frec.detectors.sync_detector as detector
 
 ROOT_PATH = path.abspath(path.join(path.dirname(__file__), 'orl_faces'))
-image_path = lambda person, picture: path.join(ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
+image_path = lambda person, picture: path.join(
+    ROOT_PATH, 's%d' % person, '%d.pgm' % picture)
 test_data = [
     (image_path(1, 1), 9, 29, 74, 74),
     (image_path(1, 3), 7, 24, 74, 74),
@@ -26,9 +27,11 @@ not_found = [
     image_path(1, 2),
 ]
 
+
 def _read(path):
     with open(path, 'rb') as f:
         return f.read()
+
 
 @Vows.batch
 class SyncDetector(Vows.Context):
@@ -38,7 +41,8 @@ class SyncDetector(Vows.Context):
                 file_path, x, y, w, h = data
 
                 img = image.Image.create_from_buffer(_read(file_path))
-                det = detector.CascadedDetector(min_neighbors=5, scale_factor=1.1, min_size=(20,20))
+                det = detector.CascadedDetector(
+                    min_neighbors=5, scale_factor=1.1, min_size=(20, 20))
                 yield (det.detect(img.to_array()), x, y, w, h)
 
         def should_not_be_none(self, (topic, x, y, w, h)):
@@ -55,4 +59,3 @@ class SyncDetector(Vows.Context):
             expect(topic[0].y).to_equal(y)
             expect(topic[0].width).to_equal(w)
             expect(topic[0].height).to_equal(h)
-
