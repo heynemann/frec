@@ -175,9 +175,7 @@ class LBP(AbstractFeature):
         features = []
 
         for value in x:
-            value = np.asarray(value)
-            h = self.spatially_enhanced_histogram(value)
-            features.append(h)
+            features.append(self.extract(value))
 
         return features
 

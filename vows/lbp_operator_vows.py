@@ -105,7 +105,15 @@ class LBP(Vows.Context):
     def should_have_default_size(self, topic):
         expect(topic.size).to_equal((8, 8))
 
-    class WhenComputingData(Vows.Context):
+    class WithInvalidOperator(Vows.Context):
+        def topic(self):
+            return op.LBP(lbp_operator="INVALID OPERATOR")
+
+        def should_be_an_error(self, topic):
+            expect(topic).to_be_an_error()
+            expect(topic).to_be_an_error_like(TypeError)
+
+    class WhenComputingAndExtractingData(Vows.Context):
         def topic(self, feature):
             images = defaultdict(list)
             for data in test_data:
