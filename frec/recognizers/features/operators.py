@@ -150,3 +150,66 @@ class ExtendedLBP(LBPOperator):
 
     def __repr__(self):
         return "ExtendedLBP (neighbors=%s, radius=%s)" % (self._neighbors, self._radius)
+
+
+class LBP(AbstractFeature):
+    def __init__(self, lbp_operator=None, size = (8,8)):
+        AbstractFeature.__init__(self)
+
+        if lbp_operator is None:
+            lbp_operator = ExtendedLBP()
+
+        if not isinstance(lbp_operator, LBPOperator):
+            raise TypeError("Only an operator of type facerec.lbp.LBPOperator is a valid lbp_operator.")
+
+        self.lbp_operator = lbp_operator
+        self.size = size
+
+    def compute(self, x, y):
+        features = []
+
+        for value in x:
+            value = np.asarray(value)
+            h = self.spatially_enhanced_histogram(value)
+            features.append(h)
+
+        return features
+
+    def extract(self, x):
+        x = np.asarray(x)
+        return self.spatially_enhanced_histogram(x)
+
+    def spatially_enhanced_histogram(self, x):
+        # calculate the LBP image
+        lbp_image = self.lbp_operator(x)
+
+        # calculate the grid geometry
+        lbp_height, lbp_width = lbp_image.shape
+        grid_rows, grid_cols = self.size
+        py = int(np.floor(lbp_height/grid_rows))
+        px = int(np.floor(lbp_width/grid_cols))
+
+        enhanced_histogram = []
+        for row in range(0,grid_rows):
+            for col in range(0,grid_cols):
+                y_low = row * py
+                y_hi = (row + 1) * py
+                x_low = col * px
+                x_hi = (col + 1) * px
+
+                c_range = lbp_image[y_low:y_hi, x_low:x_hi]
+
+                histogram = np.histogram(
+                    c_range,
+                    bins=2 ** self.lbp_operator.neighbors,
+                    range=(0, 2 ** self.lbp_operator.neighbors),
+                    normed=True
+                )[0]
+
+                # probably useful to apply a mapping?
+                enhanced_histogram.extend(histogram)
+
+        return np.asarray(enhanced_histogram)
+
+    def __repr__(self):
+        return "Local Binary Pattern (operator=%s, grid=%s)" % (repr(self.lbp_operator), str(self.size))
