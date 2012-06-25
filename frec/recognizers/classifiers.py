@@ -16,6 +16,7 @@ import operator as op
 
 import frec.recognizers.distance as dist
 
+
 class AbstractClassifier(object):
     def compute(self, x, y):
         msg = "Every AbstractClassifier must implement the compute method."
@@ -32,7 +33,7 @@ class NearestNeighbor(AbstractClassifier):
     """
     def __init__(self, dist_metric=None, k=1):
         AbstractClassifier.__init__(self)
-        
+
         if dist_metric is None:
             dist_metric = dist.EuclideanDistance()
 
@@ -58,10 +59,10 @@ class NearestNeighbor(AbstractClassifier):
         sorted_y = self.y[idx]
         sorted_y = sorted_y[0:self.k]
 
-        hist = dict((key,val) for key, val in enumerate(np.bincount(sorted_y)) if val)
+        bin_count = np.bincount(sorted_y)
+        hist = [(key, val) for key, val in enumerate(bin_count) if val]
+        hist = dict(hist)
         return max(hist.iteritems(), key=op.itemgetter(1))[0]
 
     def __repr__(self):
         return "NearestNeighbor (k=%s, dist_metric=%s)" % (self.k, repr(self.dist_metric))
-
-

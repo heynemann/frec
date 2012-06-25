@@ -53,4 +53,3 @@ class EuclideanDistance(Vows.Context):
 
         def should_be_2(self, topic):
             expect(topic).to_equal(2.0)
-
