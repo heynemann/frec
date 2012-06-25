@@ -62,3 +62,14 @@ class ChiSquareDistance(Vows.Context):
 
     def should_have_name(self, topic):
         expect(topic.name).to_equal('ChiSquareDistance')
+
+    class WhenComputing(Vows.Context):
+        def topic(self, distance):
+            p = [1, 2, 3, 4]
+            q = [2, 3, 4, 5]
+
+            return distance(p, q)
+
+        def should_have_proper_value(self, topic):
+            expect(topic).to_equal(2)
+

@@ -55,4 +55,5 @@ class ChiSquareDistance(AbstractDistance):
         q = np.asarray(q).flatten()
 
         bin_dists = (p - q) ** 2 / (p + q + np.finfo('float').eps)
+
         return np.sum(bin_dists)
