@@ -14,6 +14,7 @@
 from frec.recognizers.features import AbstractFeature
 from frec.recognizers.classifiers import AbstractClassifier
 
+
 class PredictableModel(object):
     def __init__(self, feature, classifier):
         if not isinstance(feature, AbstractFeature):

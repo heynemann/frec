@@ -14,6 +14,7 @@ import frec.recognizers.models as mod
 from frec.recognizers.features import AbstractFeature
 from frec.recognizers.classifiers import AbstractClassifier
 
+
 class MockFeature(AbstractFeature):
     def __init__(self, name):
         self.name = name
@@ -61,7 +62,8 @@ class PredictableModel(Vows.Context):
             return model
 
         def should_be_proper_value(self, topic):
-            expect(topic.classifier.computed).to_equal('computed classifier computed feature 3 4 4')
+            expect(topic.classifier.computed).to_equal(
+                'computed classifier computed feature 3 4 4')
 
     class WhenCallingPredict(Vows.Context):
         def topic(self, model):
@@ -69,7 +71,8 @@ class PredictableModel(Vows.Context):
 
         def should_be_proper_value(self, topic):
             expect(topic).not_to_be_an_error()
-            expect(topic).to_equal('predicted classifier extracted feature [1, 2, 3, 4]')
+            expect(topic).to_equal(
+                'predicted classifier extracted feature [1, 2, 3, 4]')
 
     class StringRepresentation(Vows.Context):
         def topic(self, feature):
@@ -101,4 +104,3 @@ class PredictableModel(Vows.Context):
         def should_be_an_error(self, topic):
             expect(topic).to_be_an_error()
             expect(topic).to_be_an_error_like(TypeError)
-
