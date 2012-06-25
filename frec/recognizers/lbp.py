@@ -8,6 +8,8 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
+import numpy as np
+
 from frec.recognizers.features.operators import ChainOperator
 from frec.recognizers.pre_processing.tan_triggs import TanTriggsPreProcessing
 from frec.recognizers.features.operators import LBP
@@ -34,10 +36,10 @@ class Recognizer(object):
             people.append(person)
             photos.append(self.dataSet.data[person])
 
-        self.predictor.compute(photos, people)
+        self.predictor.compute(photos, np.array(people, dtype=np.int))
 
     def recognize(self, image):
-        return {}
+        return self.predictor.predict(image.grayscale().to_array())
 
     def train(self, person, images):
         self.dataSet.train(person, images)

@@ -26,8 +26,9 @@ class PredictableModel(object):
         self.classifier = classifier
 
     def compute(self, x, y):
-        features = self.feature.compute(x, y)
-        self.classifier.compute(features, y)
+        for image in x:
+            features = self.feature.compute(image, y)
+            self.classifier.compute(features, y)
 
     def predict(self, x):
         q = self.feature.extract(x)

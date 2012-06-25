@@ -68,3 +68,4 @@ class NearestNeighbor(AbstractClassifier):
 
     def __repr__(self):
         return "NearestNeighbor (k=%s, dist_metric=%s)" % (self.k, repr(self.dist_metric))
+
