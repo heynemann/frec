@@ -51,7 +51,8 @@ class NearestNeighbor(Vows.Context):
         expect(topic.k).to_equal(1)
 
     def should_have_proper_representation(self, topic):
-        expect(str(topic)).to_equal('NearestNeighbor (k=1, dist_metric=EuclideanDistance)')
+        expect(str(topic)).to_equal(
+            'NearestNeighbor (k=1, dist_metric=EuclideanDistance)')
 
     class WhenComputing(Vows.Context):
         def topic(self, classifier):
@@ -62,4 +63,3 @@ class NearestNeighbor(Vows.Context):
 
         def should_keep_second_value_as_y(self, topic):
             expect(topic.y).to_equal(2)
-

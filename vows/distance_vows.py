@@ -53,3 +53,12 @@ class EuclideanDistance(Vows.Context):
 
         def should_be_2(self, topic):
             expect(topic).to_equal(2.0)
+
+
+@Vows.batch
+class ChiSquareDistance(Vows.Context):
+    def topic(self):
+        return ds.ChiSquareDistance()
+
+    def should_have_name(self, topic):
+        expect(topic.name).to_equal('ChiSquareDistance')

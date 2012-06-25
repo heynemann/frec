@@ -38,3 +38,21 @@ class EuclideanDistance(AbstractDistance):
         p = np.asarray(p).flatten()
         q = np.asarray(q).flatten()
         return np.sqrt(np.sum(np.power((p - q), 2)))
+
+
+class ChiSquareDistance(AbstractDistance):
+    """
+        Negated Mahalanobis Cosine Distance.
+
+        Literature:
+            "Studies on sensitivity of face recognition performance to eye location accuracy.". Master Thesis (2004), Wang
+    """
+    def __init__(self):
+        AbstractDistance.__init__(self, "ChiSquareDistance")
+
+    def __call__(self, p, q):
+        p = np.asarray(p).flatten()
+        q = np.asarray(q).flatten()
+
+        bin_dists = (p - q) ** 2 / (p + q + np.finfo('float').eps)
+        return np.sum(bin_dists)
