@@ -38,4 +38,3 @@ class PredictableModel(object):
         feature_repr = repr(self.feature)
         classifier_repr = repr(self.classifier)
         return "PredictableModel (feature=%s, classifier=%s)" % (feature_repr, classifier_repr)
-

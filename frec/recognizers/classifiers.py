@@ -49,7 +49,8 @@ class NearestNeighbor(AbstractClassifier):
         return self
 
     def predict(self, q):
-        if len(self.y) == 0: return None
+        if len(self.y) == 0:
+            return None
 
         distances = []
 
@@ -79,4 +80,3 @@ class NearestNeighbor(AbstractClassifier):
 
     def __repr__(self):
         return "NearestNeighbor (k=%s, dist_metric=%s)" % (self.k, repr(self.dist_metric))
-

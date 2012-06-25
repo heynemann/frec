@@ -18,6 +18,7 @@ from frec.recognizers.distance import ChiSquareDistance
 from frec.recognizers.models import PredictableModel
 from frec.recognizers.dataset import DataSet
 
+
 class Recognizer(object):
     def __init__(self, size=(50, 50)):
         feature = ChainOperator(TanTriggsPreProcessing(), LBP())
@@ -43,4 +44,3 @@ class Recognizer(object):
 
     def train(self, person, images):
         self.dataSet.train(person, images)
-

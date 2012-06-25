@@ -73,11 +73,10 @@ class LbpRecognizer(Vows.Context):
 
             for data in half_test_data:
                 person, picture, file_path = data
-                if picture > 1: continue
+                if picture > 1:
+                    continue
                 img = image.Image.create_from_buffer(_read(file_path))
                 yield (recognizer, person, picture, recognizer.recognize(img))
 
-
         def should_be_right(self, (recognizer, person, picture, topic)):
             expect(topic).to_equal(person)
-
