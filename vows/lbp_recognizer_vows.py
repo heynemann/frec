@@ -23,12 +23,12 @@ image_path = lambda person, picture: path.join(
 
 test_data = []
 for person in range(1, 41):
-    for picture in range(1, 10):
+    for picture in range(1, 11):
         test_data.append((person, picture, image_path(person, picture)))
 
 half_test_data = []
 for person in range(1, 21):
-    for picture in range(1, 10):
+    for picture in range(1, 11):
         half_test_data.append((person, picture, image_path(person, picture)))
 
 cache = {}
@@ -53,8 +53,8 @@ class LbpRecognizer(Vows.Context):
                 recognizer = lbp.Recognizer()
                 yield (recognizer, recognizer.recognize(img))
 
-        def should_be_empty_dict(self, (recognizer, topic)):
-            expect(topic).to_be_empty()
+        def should_be_null(self, (recognizer, topic)):
+            expect(topic).to_be_null()
 
     class AfterTrainingHalf(Vows.Context):
         def topic(self):

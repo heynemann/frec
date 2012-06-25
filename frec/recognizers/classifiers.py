@@ -40,6 +40,7 @@ class NearestNeighbor(AbstractClassifier):
         self.k = k
         self.dist_metric = dist_metric
         self.x = []
+        self.y = []
 
     def compute(self, x, y):
         self.x.append(x)
@@ -48,6 +49,8 @@ class NearestNeighbor(AbstractClassifier):
         return self
 
     def predict(self, q):
+        if len(self.y) == 0: return None
+
         distances = []
 
         for person in self.x:

@@ -58,7 +58,7 @@ class PredictableModel(Vows.Context):
 
     class WhenCallingCompute(Vows.Context):
         def topic(self, model):
-            model.compute(3, 4)
+            model.compute([3], 4)
             return model
 
         def should_be_proper_value(self, topic):

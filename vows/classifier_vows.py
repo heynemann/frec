@@ -59,7 +59,7 @@ class NearestNeighbor(Vows.Context):
             return classifier.compute(1, 2)
 
         def should_keep_first_value_as_x(self, topic):
-            expect(topic.x).to_equal(1)
+            expect(topic.x).to_equal([1])
 
         def should_keep_second_value_as_y(self, topic):
             expect(topic.y).to_equal(2)
