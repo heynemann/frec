@@ -44,6 +44,8 @@ class NearestNeighbor(AbstractClassifier):
         self.x = x
         self.y = y
 
+        return self
+
     def predict(self, q):
         distances = []
 
