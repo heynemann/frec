@@ -51,7 +51,7 @@ class Image:
     def grayscale(self):
         convert_mode = getattr(cv2, 'COLOR_%s2GRAY' % self.mode)
         self.image = cv2.cvtColor(self.image, convert_mode)
-        self.image = cv2.equalizeHist(self.image)
+        #self.image = cv2.equalizeHist(self.image)
         return self
 
     def resize(self, size):
