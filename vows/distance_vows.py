@@ -71,5 +71,4 @@ class ChiSquareDistance(Vows.Context):
             return distance(p, q)
 
         def should_have_proper_value(self, topic):
-            expect(topic).to_equal(2)
-
+            expect(topic).to_equal(0.78730158730158739)
