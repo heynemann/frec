@@ -100,7 +100,7 @@ class ExtendedLBP(LBPOperator):
 
     def __call__(self, x):
         x = np.asanyarray(x)
-        y_size, x_size = x.shape[0], x.shape[1]
+        channels, y_size, x_size = x.shape
 
         # define circle
         angles = 2 * np.pi / self._neighbors
