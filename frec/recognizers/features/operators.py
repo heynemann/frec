@@ -48,6 +48,23 @@ class ChainOperator(FeatureOperator):
     def __init__(self, first_feature, second_feature):
         FeatureOperator.__init__(self, first_feature, second_feature)
 
+    #def normalize(self, x, low, high, dtype=None):
+        #x = np.asarray(x)
+        #minX, maxX = np.min(x), np.max(x)
+
+        ## normalize to [0...1].
+        #x = x - float(minX)
+        #x = x / float((maxX - minX))
+
+        ## scale to [low...high].
+        #x = x * (high-low)
+        #x = x + low
+
+        #if dtype is None:
+            #return np.asarray(x)
+
+        #return np.asarray(x, dtype=dtype)
+
     def compute(self, x, y):
         x = self.first_feature.compute(x, y)
         return self.second_feature.compute(x, y)
@@ -82,7 +99,7 @@ class ExtendedLBP(LBPOperator):
         self._radius = radius
 
     def __call__(self, x):
-        #x = np.asanyarray(x)
+        x = np.asanyarray(x)
         y_size, x_size = x.shape[0], x.shape[1]
 
         # define circle

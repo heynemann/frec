@@ -55,7 +55,7 @@ class TanTriggsPreProcessing(AbstractFeature):
         )
 
         x = self.tau * np.tanh(x / self.tau)
-        return x
+        return np.array(x, np.uint8)
 
     def __repr__(self):
         return "TanTriggsPreprocessing (alpha=%.3f,tau=%.3f,gamma=%.3f,sigma0=%.3f,sigma1=%.3f)" % (

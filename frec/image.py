@@ -60,3 +60,6 @@ class Image:
 
     def to_array(self):
         return np.array(self.image, dtype=np.uint8)
+
+    def save(self, path):
+        cv2.imwrite(path, self.image)
