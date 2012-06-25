@@ -49,6 +49,9 @@ class Image:
         self.image = cv2.imdecode(buffer_array, 1)
 
     def grayscale(self):
+        if len(self.image.shape) == 2:
+            return self
+
         convert_mode = getattr(cv2, 'COLOR_%s2GRAY' % self.mode)
         self.image = cv2.cvtColor(self.image, convert_mode)
         self.image = cv2.equalizeHist(self.image)

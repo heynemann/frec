@@ -39,9 +39,10 @@ class NearestNeighbor(AbstractClassifier):
 
         self.k = k
         self.dist_metric = dist_metric
+        self.x = []
 
     def compute(self, x, y):
-        self.x = x
+        self.x.append(x)
         self.y = y
 
         return self
@@ -49,21 +50,28 @@ class NearestNeighbor(AbstractClassifier):
     def predict(self, q):
         distances = []
 
-        for xi in self.x:
-            xi = xi.reshape(-1, 1)
-            d = self.dist_metric(xi, q)
-            distances.append(d)
+        for person in self.x:
+            person_distances = []
+            for xi in person:
+                xi = xi.reshape(-1, 1)
+                d = self.dist_metric(xi, q)
+                person_distances.append(d)
+
+            distances.append(min(person_distances))
 
         if len(distances) > len(self.y):
             raise Exception("More distances than classes. Is your distance metric correct?")
 
         idx = np.argsort(np.array(distances))
-        sorted_y = self.y[idx]
+
+        sorted_y = np.array(self.y)[idx]
         sorted_y = sorted_y[0:self.k]
 
         bin_count = np.bincount(sorted_y)
+
         hist = [(key, val) for key, val in enumerate(bin_count) if val]
         hist = dict(hist)
+
         return max(hist.iteritems(), key=op.itemgetter(1))[0]
 
     def __repr__(self):

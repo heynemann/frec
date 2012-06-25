@@ -27,7 +27,7 @@ for person in range(1, 41):
         test_data.append((person, picture, image_path(person, picture)))
 
 half_test_data = []
-for person in range(1, 5):
+for person in range(1, 21):
     for picture in range(1, 10):
         half_test_data.append((person, picture, image_path(person, picture)))
 
@@ -45,16 +45,16 @@ def _read(path):
 
 @Vows.batch
 class LbpRecognizer(Vows.Context):
-    #class ShouldNotDetectAnythingBeforeTraining(Vows.Context):
-        #def topic(self):
-            #for data in test_data:
-                #person, picture, file_path = data
-                #img = image.Image.create_from_buffer(_read(file_path))
-                #recognizer = lbp.Recognizer()
-                #yield (recognizer, recognizer.recognize(img))
+    class ShouldNotDetectAnythingBeforeTraining(Vows.Context):
+        def topic(self):
+            for data in test_data:
+                person, picture, file_path = data
+                img = image.Image.create_from_buffer(_read(file_path))
+                recognizer = lbp.Recognizer()
+                yield (recognizer, recognizer.recognize(img))
 
-        #def should_be_empty_dict(self, (recognizer, topic)):
-            #expect(topic).to_be_empty()
+        def should_be_empty_dict(self, (recognizer, topic)):
+            expect(topic).to_be_empty()
 
     class AfterTrainingHalf(Vows.Context):
         def topic(self):
@@ -73,6 +73,7 @@ class LbpRecognizer(Vows.Context):
 
             for data in half_test_data:
                 person, picture, file_path = data
+                if picture > 1: continue
                 img = image.Image.create_from_buffer(_read(file_path))
                 yield (recognizer, person, picture, recognizer.recognize(img))
 
