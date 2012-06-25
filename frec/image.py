@@ -18,6 +18,9 @@ import numpy as np
 class Image:
     @classmethod
     def create_from_buffer(cls, image_buffer):
+        if isinstance(image_buffer, Image):
+            return image_buffer
+
         instance = cls()
 
         if not instance.is_valid(image_buffer):

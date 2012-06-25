@@ -13,10 +13,6 @@
 
 from collections import defaultdict
 
-import numpy as np
-
-import frec.image as im
-
 class DataSet(object):
     def __init__(self, size=(130, 130)):
         self.data = defaultdict(list)
@@ -24,8 +20,11 @@ class DataSet(object):
 
     def train(self, label, images):
         for image in images:
-            img = im.Image.create_from_buffer(image).resize(self.size)
+            image.grayscale()
 
-            self.data[label].append(np.asarray(img.to_array(), dtype=np.uint8))
+            #if self.size:
+                #image.resize(self.size)
+
+            self.data[label].append(image.to_array())
 
 

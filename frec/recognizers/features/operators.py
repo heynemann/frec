@@ -82,7 +82,7 @@ class ExtendedLBP(LBPOperator):
         self._radius = radius
 
     def __call__(self, x):
-        x = np.asanyarray(x)
+        #x = np.asanyarray(x)
         y_size, x_size = x.shape[0], x.shape[1]
 
         # define circle
