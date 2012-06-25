@@ -27,6 +27,11 @@ reference work that helped us along the way:
 * [Enhanced Local Texture Feature Sets for Face Recognition Under Difﬁcult Lighting Conditions](http://lear.inrialpes.fr/pubs/2007/TT07/Tan-amfg07a.pdf) - by Xiaoyang Tan and Bill Triggs
 * [Face Detection using LBP features](http://cs229.stanford.edu/proj2008/Jo-FaceDetectionUsingLBPfeatures.pdf) - by Jo Chang-yeon
 
+books
+-----
+
+* [Studies on Sensitivity of Face Recognition Performance to Eye Location Accuracy](http://books.google.com.br/books/about/Studies_on_Sensitivity_of_Face_Recogniti.html?id=wZpQNwAACAAJ&redir_esc=y) - Haoshu Wang - University of Notre Dame 2004
+
 math
 ----
 
