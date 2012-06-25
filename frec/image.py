@@ -51,5 +51,9 @@ class Image:
         self.image = cv2.equalizeHist(self.image)
         return self
 
+    def resize(self, size):
+        self.image = cv2.resize(self.image, size)
+        return self
+
     def to_array(self):
         return np.array(self.image, dtype=np.uint8)
