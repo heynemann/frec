@@ -44,3 +44,4 @@ class Recognizer(object):
 
     def train(self, person, images):
         self.dataSet.train(person, images)
+

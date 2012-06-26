@@ -22,4 +22,5 @@ class DataSet(object):
     def train(self, label, images):
         for image in images:
             image.grayscale()
+            image.resize(self.size)
             self.data[label].append(image.to_array())
