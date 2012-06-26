@@ -27,7 +27,7 @@ for person in range(1, 41):
         test_data.append((person, picture, image_path(person, picture)))
 
 half_test_data = []
-for person in range(1, 21):
+for person in range(1, 5):
     for picture in range(1, 11):
         half_test_data.append((person, picture, image_path(person, picture)))
 
@@ -67,7 +67,7 @@ class LbpRecognizer(Vows.Context):
                 people[person].append(img)
 
             for person in people.keys():
-                recognizer.train(person, people[person])
+                recognizer.train("Pessoa %d" % person, people[person])
 
             recognizer.compute()
 
@@ -76,7 +76,9 @@ class LbpRecognizer(Vows.Context):
                 if picture > 1:
                     continue
                 img = image.Image.create_from_buffer(_read(file_path))
-                yield (recognizer, person, picture, recognizer.recognize(img))
+                yield (recognizer, "Pessoa %d" % person, picture, dict(recognizer.recognize(img)))
 
         def should_be_right(self, (recognizer, person, picture, topic)):
-            expect(topic).to_equal(person)
+            expect(topic).to_include(person)
+            expect(topic[person]).not_to_equal(0)
+

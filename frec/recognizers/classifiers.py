@@ -33,13 +33,14 @@ class NearestNeighbor(AbstractClassifier):
     """
     Implements a k-Nearest Neighbor Model for a generic distance metric.
     """
-    def __init__(self, dist_metric=None, k=1):
+    def __init__(self, dist_metric=None, k=1, max_items=5):
         AbstractClassifier.__init__(self)
 
         if dist_metric is None:
             dist_metric = dist.EuclideanDistance()
 
         self.k = k
+        self.max_items = 5
         self.dist_metric = dist_metric
         self.x = []
         self.y = []
@@ -50,38 +51,33 @@ class NearestNeighbor(AbstractClassifier):
 
         return self
 
-    def predict(self, photo_to_recognize):
+    def predict(self, feature_to_recognize):
         if len(self.y) == 0:
             return None
 
         distances = []
 
         for person in self.x:
-            min_person_distance = sys.float_info.max
-            for photo in person:
-                # why?
-                #photo = photo.reshape(-1, 1)
+            min_distance = 100000000000
+            for feature in person:
+                d = self.dist_metric(feature, feature_to_recognize)
+                if d < min_distance:
+                    min_distance = d
 
-                d = self.dist_metric(photo, photo_to_recognize)
-                if d < min_person_distance:
-                    min_person_distance = d
-
-            distances.append(min_person_distance)
+            distances.append(min_distance)
 
         if len(distances) > len(self.y):
             raise Exception("More distances than classes. Is your distance metric correct?")
 
-        idx = np.argsort(np.array(distances))
+        result = []
+        for i, distance in enumerate(distances):
+            result.append((self.y[i], distance))
 
-        sorted_y = np.array(self.y)[idx]
-        sorted_y = sorted_y[0:self.k]
+        result = sorted(result, key=lambda (label, distance): distance)
 
-        bin_count = np.bincount(sorted_y)
+        return result[:self.max_items]
 
-        hist = [(key, val) for key, val in enumerate(bin_count) if val]
-        hist = dict(hist)
-
-        return max(hist.iteritems(), key=op.itemgetter(1))[0]
 
     def __repr__(self):
         return "NearestNeighbor (k=%s, dist_metric=%s)" % (self.k, repr(self.dist_metric))
+

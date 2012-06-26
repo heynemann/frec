@@ -37,7 +37,7 @@ class Recognizer(object):
             people.append(person)
             photos.append(self.dataSet.data[person])
 
-        self.predictor.compute(photos, np.array(people, dtype=np.int))
+        self.predictor.compute(photos, np.array(people))
 
     def recognize(self, image):
         return self.predictor.predict(image.grayscale().to_array())

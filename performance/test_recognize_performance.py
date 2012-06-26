@@ -67,4 +67,4 @@ def main(people_to_train, images_to_train, iterations):
 
 
 if __name__ == '__main__':
-    main(15, 10, 100)
+    main(15, 100, 1)
