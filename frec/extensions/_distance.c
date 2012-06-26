@@ -19,8 +19,9 @@ _distance_apply(PyObject *self, PyObject *args)
     double sum = 0;
     int i = 0;
     for (; i < (int)*size; ++i) {
-        double array_sum = array_data[i] + array_data_2[i];
-        double array_diff = array_data[i] - array_data_2[i];
+        double val = array_data[i], val2 = array_data_2[i];
+        double array_sum = val + val2;
+        double array_diff = val - val2;
         sum += (array_diff * array_diff) / (array_sum + EPSILON);
     }
 
