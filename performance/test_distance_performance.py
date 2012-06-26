@@ -41,19 +41,19 @@ def test(iterations=1000):
     euclidean_timer.start()
     for i in range(iterations):
         distance(IMG1, IMG2)
+        euclidean_timer.iterate()
     euclidean_timer.stop()
 
     distance = ChiSquareDistance()
     chi_timer.start()
     for i in range(iterations):
         distance(IMG1, IMG2)
+        chi_timer.iterate()
     chi_timer.stop()
 
     print euclidean_timer
-    print 'Euclidean: %.2f ops/s' % (float(iterations) / euclidean_timer.ellapsed)
 
     print chi_timer
-    print 'ChiSquare: %.2f ops/s' % (float(iterations) / chi_timer.ellapsed)
 
 if __name__ == '__main__':
     test(10000)

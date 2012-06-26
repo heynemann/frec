@@ -13,6 +13,7 @@
 
 import numpy as np
 
+from frec.extensions import _distance
 
 class AbstractDistance(object):
     def __init__(self, name):
@@ -47,13 +48,18 @@ class ChiSquareDistance(AbstractDistance):
         Literature:
             "Studies on sensitivity of face recognition performance to eye location accuracy.". Master Thesis (2004), Wang
     """
+    eps = 2.2204460492503131e-16
+
     def __init__(self):
         AbstractDistance.__init__(self, "ChiSquareDistance")
-
-    def __call__(self, p, q):
+    
+    def python_call(self, p, q):
         p = np.asarray(p).flatten()
         q = np.asarray(q).flatten()
 
-        bin_dists = (p - q) ** 2 / (p + q + np.finfo('float').eps)
-
+        bin_dists = (p - q) ** 2 / (p + q + self.eps)
         return np.sum(bin_dists)
+
+    def __call__(self, p, q):
+        return _distance.apply(p, q)
+

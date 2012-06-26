@@ -16,12 +16,16 @@ class Chrono:
         self.name = name
         self.start_time = None
         self.end_time = None
+        self.iterations = 0
 
     def start(self):
         self.start_time = time.time()
 
     def stop(self):
         self.end_time = time.time()
+
+    def iterate(self):
+        self.iterations += 1
 
     @property
     def ellapsed(self):
@@ -30,6 +34,10 @@ class Chrono:
 
         return self.end_time - self.start_time
 
+    @property
+    def speed(self):
+        return (float(self.iterations) / self.ellapsed)
+
     def __repr__(self):
-        return 'Chronograph %s, ellapsed: %ss' % (self.name, self.ellapsed)
+        return 'Chronograph %s, ellapsed: %ss\n%s: %.2f ops/s' % (self.name, self.ellapsed, self.name, self.speed)
 
