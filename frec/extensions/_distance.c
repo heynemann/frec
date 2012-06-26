@@ -16,13 +16,6 @@ _distance_apply(PyObject *self, PyObject *args)
     double *array_data_2 = PyArray_DATA(array2);
     npy_intp *size = PyArray_DIMS(array);
 
-    /*p = np.asarray(p).flatten()*/
-    /*q = np.asarray(q).flatten()*/
-
-    /*bin_dists = (p - q) ** 2 / (p + q + self.eps)*/
-
-    /*return np.sum(bin_dists)*/
-
     double sum = 0;
     int i = 0;
     for (; i < (int)*size; ++i) {
