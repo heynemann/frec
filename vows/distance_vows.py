@@ -8,6 +8,7 @@
 # http://www.opensource.org/licenses/mit-license
 # copyright (c) 2012 bernardo heynemann heynemann@gmail.com
 
+import numpy as np
 from pyvows import Vows, expect
 
 import frec.recognizers.distance as ds
@@ -29,7 +30,7 @@ class AbstractDistance(Vows.Context):
 
     class WhenCalling(Vows.Context):
         def topic(self, distance):
-            return distance(1, 2)
+            return distance(np.array([1]), np.array([2]))
 
         def should_be_an_error(self, topic):
             expect(topic).to_be_an_error()
@@ -46,8 +47,8 @@ class EuclideanDistance(Vows.Context):
 
     class WhenComputingDistanceBetweenTwoPoints(Vows.Context):
         def topic(self, distance):
-            p = [1, 2, 3, 4]
-            q = [2, 3, 4, 5]
+            p = np.array([1, 2, 3, 4])
+            q = np.array([2, 3, 4, 5])
 
             return distance(p, q)
 
@@ -65,10 +66,11 @@ class ChiSquareDistance(Vows.Context):
 
     class WhenComputing(Vows.Context):
         def topic(self, distance):
-            p = [1, 2, 3, 4]
-            q = [2, 3, 4, 5]
+            p = np.array([1.0, 2.0, 3.0, 4.0])
+            q = np.array([2.0, 3.0, 4.0, 5.0])
 
             return distance(p, q)
 
         def should_have_proper_value(self, topic):
             expect(round(topic, 4)).to_equal(0.7873)
+

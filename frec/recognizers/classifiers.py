@@ -11,6 +11,8 @@
 # code adapted from facerec's classifier module
 # (https://github.com/bytefish/facerec)
 
+import sys
+
 import numpy as np
 import operator as op
 
@@ -55,15 +57,16 @@ class NearestNeighbor(AbstractClassifier):
         distances = []
 
         for person in self.x:
-            person_distances = []
+            min_person_distance = sys.float_info.max
             for photo in person:
                 # why?
                 #photo = photo.reshape(-1, 1)
 
                 d = self.dist_metric(photo, photo_to_recognize)
-                person_distances.append(d)
+                if d < min_person_distance:
+                    min_person_distance = d
 
-            distances.append(min(person_distances))
+            distances.append(min_person_distance)
 
         if len(distances) > len(self.y):
             raise Exception("More distances than classes. Is your distance metric correct?")
