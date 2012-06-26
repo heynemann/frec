@@ -48,7 +48,7 @@ class NearestNeighbor(AbstractClassifier):
 
         return self
 
-    def predict(self, q):
+    def predict(self, photo_to_recognize):
         if len(self.y) == 0:
             return None
 
@@ -56,9 +56,11 @@ class NearestNeighbor(AbstractClassifier):
 
         for person in self.x:
             person_distances = []
-            for xi in person:
-                xi = xi.reshape(-1, 1)
-                d = self.dist_metric(xi, q)
+            for photo in person:
+                # why?
+                #photo = photo.reshape(-1, 1)
+
+                d = self.dist_metric(photo, photo_to_recognize)
                 person_distances.append(d)
 
             distances.append(min(person_distances))
