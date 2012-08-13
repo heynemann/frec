@@ -54,6 +54,7 @@ class FaceRecMapper(Mapper):
 
     def get_feature_for(self, person, picture):
         feature = feature_path(person, picture)
+
         if exists("%s.mat" % feature):
             contents = scipy.io.loadmat(feature)
             return contents['m']
